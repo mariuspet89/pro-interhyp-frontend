@@ -1,24 +1,24 @@
-
 import './App.css';
-import Hello from "./components/hellotext";
+import Users from "./components/users";
 import React from "react";
+import Hello from "./components/hellotext";
 
 function App() {
 
-  return (
+    return (
 
-      <div className="App">
+        <div className="App">
 
-        <header className="App-header">
+            <header className="App-header">
 
-          <p>Hello Super Juniors, I'm React</p>
+                <p>Hello Super Juniors, I'm React</p>
 
-          <Hello/>
+                <Users/>
+                <Hello/>
+            </header>
 
-        </header>
-
-      </div>
-  );
+        </div>
+    );
 }
 
 export default App;
