@@ -22,9 +22,9 @@ class Users extends Component {
     render() {
         return (
             <div className="container">
-                <h3>Users</h3>
+                <h3 id="tableTitle">Users</h3>
                 <div className="container">
-                    <table className="table">
+                    <table className="table-content">
                         <thead>
                         <tr>
                             <th>Id</th>
