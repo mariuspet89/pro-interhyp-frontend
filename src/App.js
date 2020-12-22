@@ -11,10 +11,8 @@ function App() {
 
             <header className="App-header">
 
-                <p>Hello Super Juniors, I'm React</p>
-
                 <Users/>
-                <Hello/>
+                {/*<Hello/>*/}
             </header>
 
         </div>
