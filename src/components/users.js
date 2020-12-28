@@ -11,7 +11,7 @@ class Users extends Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:8080/users")
+        axios.get("http://20.52.146.224/users")
 
             .then(response => {
                 this.setState({users: response.data})
