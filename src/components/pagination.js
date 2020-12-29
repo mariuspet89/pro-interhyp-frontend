@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const Pagination = ({ usersPerPage, totalUsers, paginate }) => {
+const Pagination = ({ totalUsers, paginate }) => {
   const pageNumbers = [];
 
   for (let i = 1; i <= totalUsers; i++) {
@@ -9,10 +9,10 @@ const Pagination = ({ usersPerPage, totalUsers, paginate }) => {
 
   return (
     <div>
-      <ul className='pagination'>
-        {pageNumbers.map(number => (
+      <ul className="pagination">
+        {pageNumbers.map((number) => (
           <li key={number}>
-            <a onClick={() => paginate(number)} href='#'>
+            <a onClick={() => paginate(number)} href="#">
               {number}
             </a>
           </li>

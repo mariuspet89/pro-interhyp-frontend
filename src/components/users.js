@@ -51,7 +51,6 @@ class Users extends Component {
             </tbody>
           </table>
           <Pagination
-            usersPerPage={this.state.usersPerPage}
             totalUsers={this.state.users.length}
             paginate={paginate}
           />
