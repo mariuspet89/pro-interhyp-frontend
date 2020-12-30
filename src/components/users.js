@@ -50,11 +50,15 @@ class Users extends Component {
               ))}
             </tbody>
           </table>
-          <Pagination
+     
+        </div>
+        <div className="pagination-section">
+        <Pagination
             totalUsers={this.state.users.length}
             paginate={paginate}
           />
         </div>
+   
       </div>
     );
   }

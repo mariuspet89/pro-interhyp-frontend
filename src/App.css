@@ -70,10 +70,12 @@ body {
     display: flex;
     justify-content: center;
     padding: 0;
+    flex-wrap: wrap;
 }
 
 .pagination li {
   list-style: none;
+  padding: 4px;
 }
 
 .pagination a {
@@ -88,3 +90,12 @@ body {
 .pagination a:hover{
     background-color: #add8e6;
 }
+
+.content{
+  width: 400px;
+}
+
+/* .pagination-section{
+  position: absolute;
+  width: 100vw;
+} */
