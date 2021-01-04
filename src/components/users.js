@@ -1,30 +1,35 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Pagination from "./pagination";
+import Pagination from "react-js-pagination";
 class Users extends Component {
   constructor(props) {
     super(props);
     this.state = {
       users: [],
-      currentPage: 1,
+      activePage: 1,
       usersPerPage: 10,
+      currentUsers: 1,
     };
   }
   componentDidMount() {
-    axios.get("http://20.52.146.224:8080/users").then((response) => {
+    axios.get("http://localhost:8080/users").then((response) => {
       this.setState({ users: response.data });
     });
   }
 
+  handlePageChange(pageNumber) {
+    console.log(`active page is ${pageNumber}`);
+    this.setState({activePage: pageNumber});
+  }
+
   render() {
-    const indexOfLastUser = this.state.currentPage * this.state.usersPerPage;
+
+    const indexOfLastUser = this.state.activePage * this.state.usersPerPage;
     const indexOfFirstUser = indexOfLastUser - this.state.usersPerPage;
     const currentUsers = this.state.users.slice(
-      indexOfFirstUser,
-      indexOfLastUser
+        indexOfFirstUser,
+        indexOfLastUser
     );
-    //display the users(usersPerPage) when the user clicks a new number on the pagination section
-    const paginate = (pageNumber) => this.setState({ currentPage: pageNumber });
 
     return (
       <div className="container">
@@ -33,32 +38,36 @@ class Users extends Component {
           <table className="table-content">
             <thead>
               <tr>
-                <th>Id</th>
                 <th>First Name</th>
-                <th>Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
                 <th>Details</th>
+                <th>Birthday</th>
               </tr>
             </thead>
             <tbody>
               {currentUsers.map((user) => (
                 <tr key={user.id}>
-                  <td>{user.id}</td>
                   <td>{user.firstName}</td>
-                  <td>{user.name}</td>
+                  <td>{user.lastName}</td>
+                  <td>{user.username}</td>
                   <td>{user.details}</td>
+                  <td>{user.birthday}</td>
                 </tr>
               ))}
             </tbody>
           </table>
      
         </div>
-        <div className="pagination-section">
-        <Pagination
-            totalUsers={this.state.users.length}
-            paginate={paginate}
+        <div>
+          <Pagination
+              activePage={this.state.activePage}
+              itemsCountPerPage={this.state.usersPerPage}
+              totalItemsCount={this.state.users.length}
+              pageRangeDisplayed={5}
+              onChange={this.handlePageChange.bind(this)}
           />
         </div>
-   
       </div>
     );
   }
