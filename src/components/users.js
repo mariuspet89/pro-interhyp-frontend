@@ -7,7 +7,7 @@ class Users extends Component {
     this.state = {
       users: [],
       currentPage: 1,
-      usersPerPage: 1,
+      usersPerPage: 10,
     };
   }
   componentDidMount() {
