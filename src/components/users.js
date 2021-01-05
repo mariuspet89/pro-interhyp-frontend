@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
+import User from "./User";
 
 class Users extends Component {
 
@@ -15,7 +16,6 @@ class Users extends Component {
 
             .then(response => {
                 this.setState({users: response.data})
-                console.log(response.data)
             })
     }
 
@@ -30,19 +30,14 @@ class Users extends Component {
                             <th>Id</th>
                             <th>First Name</th>
                             <th>Name</th>
+                            <th>Job</th>
+                            <th>Birthday</th>
                             <th>Details</th>
-
-
                         </tr>
                         </thead>
-                        <tbody>{this.state.users.map(user =>
-                            <tr key={user.id}>
-                                <td>{user.id}</td>
-                                <td>{user.firstName}</td>
-                                <td>{user.name}</td>
-                                <td>{user.details}</td>
-
-                            </tr>
+                        <tbody>
+                        {this.state.users.map(user =>
+                            <User key={user.id} user={user}/>
                         )}
                         </tbody>
 
