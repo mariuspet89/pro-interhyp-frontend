@@ -31,3 +31,12 @@
 .tableContent tbody tr:last-of-type {
     border-bottom: 2px solid #009879;
 }
+
+.detailsLink {
+    text-decoration: none;
+    color:black;
+}
+
+.detailsLink:hover {
+    color: #009879;
+}

@@ -1,0 +1,129 @@
+Index: src/components/users.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from \"react\";\r\nimport axios from \"axios\";\r\n\r\nclass Users extends Component {\r\n\r\n    constructor(props) {\r\n        super(props);\r\n        this.state = {\r\n            users: []\r\n        };\r\n    }\r\n\r\n    componentDidMount() {\r\n        axios.get(\"http://20.52.146.224:8080/users\")\r\n\r\n            .then(response => {\r\n                this.setState({users: response.data})\r\n                console.log(response.data)\r\n            })\r\n    }\r\n\r\n    render() {\r\n        return (\r\n            <div className=\"container\">\r\n                <h3 id=\"tableTitle\">Users</h3>\r\n                <div className=\"container\">\r\n                    <table className=\"table-content\">\r\n                        <thead>\r\n                        <tr>\r\n                            <th>Id</th>\r\n                            <th>First Name</th>\r\n                            <th>Name</th>\r\n                            <th>Details</th>\r\n\r\n\r\n                        </tr>\r\n                        </thead>\r\n                        <tbody>{this.state.users.map(user =>\r\n                            <tr key={user.id}>\r\n                                <td>{user.id}</td>\r\n                                <td>{user.firstName}</td>\r\n                                <td>{user.name}</td>\r\n                                <td>{user.details}</td>\r\n\r\n                            </tr>\r\n                        )}\r\n                        </tbody>\r\n\r\n                    </table>\r\n                </div>\r\n            </div>)\r\n    }\r\n}\r\n\r\nexport default Users;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/users.js b/src/components/users.js
+--- a/src/components/users.js	(revision 6e30b6ff34ea699a217774fd4612ca7a9423fe53)
++++ b/src/components/users.js	(date 1609154693164)
+@@ -12,7 +12,6 @@
+ 
+     componentDidMount() {
+         axios.get("http://20.52.146.224:8080/users")
+-
+             .then(response => {
+                 this.setState({users: response.data})
+                 console.log(response.data)
+Index: .eslintcache
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>[{\"C:\\\\Users\\\\doru.varga\\\\Desktop\\\\internship\\\\FE\\\\prointerhypweb\\\\src\\\\index.js\":\"1\",\"C:\\\\Users\\\\doru.varga\\\\Desktop\\\\internship\\\\FE\\\\prointerhypweb\\\\src\\\\reportWebVitals.js\":\"2\",\"C:\\\\Users\\\\doru.varga\\\\Desktop\\\\internship\\\\FE\\\\prointerhypweb\\\\src\\\\App.js\":\"3\",\"C:\\\\Users\\\\doru.varga\\\\Desktop\\\\internship\\\\FE\\\\prointerhypweb\\\\src\\\\components\\\\hellotext.js\":\"4\",\"C:\\\\Users\\\\doru.varga\\\\Desktop\\\\internship\\\\FE\\\\prointerhypweb\\\\src\\\\components\\\\users.js\":\"5\"},{\"size\":277,\"mtime\":1608209350954,\"results\":\"6\",\"hashOfConfig\":\"7\"},{\"size\":362,\"mtime\":499162500000,\"results\":\"8\",\"hashOfConfig\":\"7\"},{\"size\":386,\"mtime\":1608637806384,\"results\":\"9\",\"hashOfConfig\":\"7\"},{\"size\":674,\"mtime\":1608627798072,\"results\":\"10\",\"hashOfConfig\":\"7\"},{\"size\":1534,\"mtime\":1608628225172,\"results\":\"11\",\"hashOfConfig\":\"7\"},{\"filePath\":\"12\",\"messages\":\"13\",\"errorCount\":0,\"warningCount\":0,\"fixableErrorCount\":0,\"fixableWarningCount\":0,\"usedDeprecatedRules\":\"14\"},\"kdiskm\",{\"filePath\":\"15\",\"messages\":\"16\",\"errorCount\":0,\"warningCount\":0,\"fixableErrorCount\":0,\"fixableWarningCount\":0,\"usedDeprecatedRules\":\"14\"},{\"filePath\":\"17\",\"messages\":\"18\",\"errorCount\":0,\"warningCount\":1,\"fixableErrorCount\":0,\"fixableWarningCount\":0,\"source\":null},{\"filePath\":\"19\",\"messages\":\"20\",\"errorCount\":0,\"warningCount\":0,\"fixableErrorCount\":0,\"fixableWarningCount\":0},{\"filePath\":\"21\",\"messages\":\"22\",\"errorCount\":0,\"warningCount\":0,\"fixableErrorCount\":0,\"fixableWarningCount\":0},\"C:\\\\Users\\\\doru.varga\\\\Desktop\\\\internship\\\\FE\\\\prointerhypweb\\\\src\\\\index.js\",[],[\"23\",\"24\"],\"C:\\\\Users\\\\doru.varga\\\\Desktop\\\\internship\\\\FE\\\\prointerhypweb\\\\src\\\\reportWebVitals.js\",[],\"C:\\\\Users\\\\doru.varga\\\\Desktop\\\\internship\\\\FE\\\\prointerhypweb\\\\src\\\\App.js\",[\"25\"],\"C:\\\\Users\\\\doru.varga\\\\Desktop\\\\internship\\\\FE\\\\prointerhypweb\\\\src\\\\components\\\\hellotext.js\",[],\"C:\\\\Users\\\\doru.varga\\\\Desktop\\\\internship\\\\FE\\\\prointerhypweb\\\\src\\\\components\\\\users.js\",[],{\"ruleId\":\"26\",\"replacedBy\":\"27\"},{\"ruleId\":\"28\",\"replacedBy\":\"29\"},{\"ruleId\":\"30\",\"severity\":1,\"message\":\"31\",\"line\":4,\"column\":8,\"nodeType\":\"32\",\"messageId\":\"33\",\"endLine\":4,\"endColumn\":13},\"no-native-reassign\",[\"34\"],\"no-negated-in-lhs\",[\"35\"],\"no-unused-vars\",\"'Hello' is defined but never used.\",\"Identifier\",\"unusedVar\",\"no-global-assign\",\"no-unsafe-negation\"]
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.eslintcache b/.eslintcache
+--- a/.eslintcache	(revision 6e30b6ff34ea699a217774fd4612ca7a9423fe53)
++++ b/.eslintcache	(date 1609145896415)
+@@ -1,1 +1,1 @@
+-[{"C:\\Users\\doru.varga\\Desktop\\internship\\FE\\prointerhypweb\\src\\index.js":"1","C:\\Users\\doru.varga\\Desktop\\internship\\FE\\prointerhypweb\\src\\reportWebVitals.js":"2","C:\\Users\\doru.varga\\Desktop\\internship\\FE\\prointerhypweb\\src\\App.js":"3","C:\\Users\\doru.varga\\Desktop\\internship\\FE\\prointerhypweb\\src\\components\\hellotext.js":"4","C:\\Users\\doru.varga\\Desktop\\internship\\FE\\prointerhypweb\\src\\components\\users.js":"5"},{"size":277,"mtime":1608209350954,"results":"6","hashOfConfig":"7"},{"size":362,"mtime":499162500000,"results":"8","hashOfConfig":"7"},{"size":386,"mtime":1608637806384,"results":"9","hashOfConfig":"7"},{"size":674,"mtime":1608627798072,"results":"10","hashOfConfig":"7"},{"size":1534,"mtime":1608628225172,"results":"11","hashOfConfig":"7"},{"filePath":"12","messages":"13","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"14"},"kdiskm",{"filePath":"15","messages":"16","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"14"},{"filePath":"17","messages":"18","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"19","messages":"20","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},{"filePath":"21","messages":"22","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},"C:\\Users\\doru.varga\\Desktop\\internship\\FE\\prointerhypweb\\src\\index.js",[],["23","24"],"C:\\Users\\doru.varga\\Desktop\\internship\\FE\\prointerhypweb\\src\\reportWebVitals.js",[],"C:\\Users\\doru.varga\\Desktop\\internship\\FE\\prointerhypweb\\src\\App.js",["25"],"C:\\Users\\doru.varga\\Desktop\\internship\\FE\\prointerhypweb\\src\\components\\hellotext.js",[],"C:\\Users\\doru.varga\\Desktop\\internship\\FE\\prointerhypweb\\src\\components\\users.js",[],{"ruleId":"26","replacedBy":"27"},{"ruleId":"28","replacedBy":"29"},{"ruleId":"30","severity":1,"message":"31","line":4,"column":8,"nodeType":"32","messageId":"33","endLine":4,"endColumn":13},"no-native-reassign",["34"],"no-negated-in-lhs",["35"],"no-unused-vars","'Hello' is defined but never used.","Identifier","unusedVar","no-global-assign","no-unsafe-negation"]
+\ No newline at end of file
++[{"C:\\Users\\madalin.sava\\WebstormProjects\\pro-interhyp-frontend\\src\\index.js":"1","C:\\Users\\madalin.sava\\WebstormProjects\\pro-interhyp-frontend\\src\\reportWebVitals.js":"2","C:\\Users\\madalin.sava\\WebstormProjects\\pro-interhyp-frontend\\src\\App.js":"3","C:\\Users\\madalin.sava\\WebstormProjects\\pro-interhyp-frontend\\src\\components\\hellotext.js":"4","C:\\Users\\madalin.sava\\WebstormProjects\\pro-interhyp-frontend\\src\\components\\users.js":"5"},{"size":292,"mtime":1608796070987,"results":"6","hashOfConfig":"7"},{"size":375,"mtime":1608284643815,"results":"8","hashOfConfig":"7"},{"size":386,"mtime":1608715222975,"results":"9","hashOfConfig":"7"},{"size":674,"mtime":1608284643812,"results":"10","hashOfConfig":"7"},{"size":1538,"mtime":1609145895349,"results":"11","hashOfConfig":"7"},{"filePath":"12","messages":"13","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},"uj61i7",{"filePath":"14","messages":"15","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},{"filePath":"16","messages":"17","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"18","messages":"19","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},{"filePath":"20","messages":"21","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},"C:\\Users\\madalin.sava\\WebstormProjects\\pro-interhyp-frontend\\src\\index.js",[],"C:\\Users\\madalin.sava\\WebstormProjects\\pro-interhyp-frontend\\src\\reportWebVitals.js",[],"C:\\Users\\madalin.sava\\WebstormProjects\\pro-interhyp-frontend\\src\\App.js",["22"],"C:\\Users\\madalin.sava\\WebstormProjects\\pro-interhyp-frontend\\src\\components\\hellotext.js",[],"C:\\Users\\madalin.sava\\WebstormProjects\\pro-interhyp-frontend\\src\\components\\users.js",[],{"ruleId":"23","severity":1,"message":"24","line":4,"column":8,"nodeType":"25","messageId":"26","endLine":4,"endColumn":13},"no-unused-vars","'Hello' is defined but never used.","Identifier","unusedVar"]
+\ No newline at end of file
+Index: .gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># See https://help.github.com/articles/ignoring-files/ for more about ignoring files.\r\n\r\n# dependencies\r\n/node_modules\r\n/.pnp\r\n.pnp.js\r\n\r\n# testing\r\n/coverage\r\n\r\n# production\r\n/build\r\n\r\n# misc\r\n.DS_Store\r\n.env.local\r\n.env.development.local\r\n.env.test.local\r\n.env.production.local\r\n\r\nnpm-debug.log*\r\nyarn-debug.log*\r\nyarn-error.log*\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.gitignore b/.gitignore
+--- a/.gitignore	(revision 6e30b6ff34ea699a217774fd4612ca7a9423fe53)
++++ b/.gitignore	(date 1609070102348)
+@@ -17,6 +17,8 @@
+ .env.development.local
+ .env.test.local
+ .env.production.local
++.eslintcache
++.idea
+ 
+ npm-debug.log*
+ yarn-debug.log*
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"VcsDirectoryMappings\">\r\n    <mapping directory=\"$PROJECT_DIR$\" vcs=\"Git\" />\r\n    <mapping directory=\"$PROJECT_DIR$/pro-interhyp-frontend\" vcs=\"Git\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+--- a/.idea/vcs.xml	(revision 6e30b6ff34ea699a217774fd4612ca7a9423fe53)
++++ b/.idea/vcs.xml	(date 1608730550588)
+@@ -2,6 +2,5 @@
+ <project version="4">
+   <component name="VcsDirectoryMappings">
+     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+-    <mapping directory="$PROJECT_DIR$/pro-interhyp-frontend" vcs="Git" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"0790ab23-c5d8-4c11-a07d-bbc8693238f9\" name=\"Default Changelist\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.eslintcache\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.eslintcache\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/App.css\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/App.css\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/App.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/App.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/users.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/users.js\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"JavaScript File\" />\r\n        <option value=\"CSS File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"develop\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n    <option name=\"ROOT_SYNC\" value=\"SYNC\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1lmYJ7bfe5IYV1MvhQtV3tqSPbj\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"1\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/src\" />\r\n    <property name=\"list.type.of.created.stylesheet\" value=\"CSS\" />\r\n    <property name=\"node.js.detected.package.eslint\" value=\"true\" />\r\n    <property name=\"node.js.detected.package.standard\" value=\"true\" />\r\n    <property name=\"node.js.path.for.package.eslint\" value=\"project\" />\r\n    <property name=\"node.js.path.for.package.standard\" value=\"project\" />\r\n    <property name=\"node.js.selected.package.eslint\" value=\"(autodetect)\" />\r\n    <property name=\"node.js.selected.package.standard\" value=\"\" />\r\n    <property name=\"nodejs_interpreter_path\" value=\"node\" />\r\n    <property name=\"nodejs_package_manager_path\" value=\"npm\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"project.propVCSSupport.Mappings\" />\r\n    <property name=\"ts.external.directory.path\" value=\"C:\\Program Files\\JetBrains\\WebStorm 2020.3\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external\" />\r\n    <property name=\"vue.rearranger.settings.migration\" value=\"true\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\doru.varga\\Desktop\\internship\\FE\\prointerhypweb\\src\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"npm.npm start\">\r\n    <configuration name=\"Debug Application\" type=\"JavascriptDebugType\" uri=\"http://localhost:3000\">\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"npm start\" type=\"js.build_tools.npm\">\r\n      <package-json value=\"$PROJECT_DIR$/package.json\" />\r\n      <command value=\"run\" />\r\n      <scripts>\r\n        <script value=\"start\" />\r\n      </scripts>\r\n      <node-interpreter value=\"project\" />\r\n      <envs />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"0790ab23-c5d8-4c11-a07d-bbc8693238f9\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1608203659187</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1608203659187</updated>\r\n      <workItem from=\"1608203660412\" duration=\"1842000\" />\r\n      <workItem from=\"1608205545700\" duration=\"7055000\" />\r\n      <workItem from=\"1608215904252\" duration=\"7581000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 6e30b6ff34ea699a217774fd4612ca7a9423fe53)
++++ b/.idea/workspace.xml	(date 1609154703998)
+@@ -3,10 +3,9 @@
+   <component name="ChangeListManager">
+     <list default="true" id="0790ab23-c5d8-4c11-a07d-bbc8693238f9" name="Default Changelist" comment="">
+       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/users.js" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -46,10 +45,13 @@
+     <property name="list.type.of.created.stylesheet" value="CSS" />
+     <property name="node.js.detected.package.eslint" value="true" />
+     <property name="node.js.detected.package.standard" value="true" />
++    <property name="node.js.detected.package.tslint" value="true" />
+     <property name="node.js.path.for.package.eslint" value="project" />
+     <property name="node.js.path.for.package.standard" value="project" />
++    <property name="node.js.path.for.package.tslint" value="project" />
+     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+     <property name="node.js.selected.package.standard" value="" />
++    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+     <property name="nodejs_interpreter_path" value="node" />
+     <property name="nodejs_package_manager_path" value="npm" />
+     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+@@ -87,6 +89,10 @@
+       <workItem from="1608203660412" duration="1842000" />
+       <workItem from="1608205545700" duration="7055000" />
+       <workItem from="1608215904252" duration="7581000" />
++      <workItem from="1608730532283" duration="1967000" />
++      <workItem from="1608752034188" duration="1773000" />
++      <workItem from="1609069643781" duration="1165000" />
++      <workItem from="1609143454490" duration="2016000" />
+     </task>
+     <servers />
+   </component>
+@@ -105,4 +111,9 @@
+     </option>
+     <option name="oldMeFiltersMigrated" value="true" />
+   </component>
++  <component name="VcsManagerConfiguration">
++    <ignored-roots>
++      <path value="$PROJECT_DIR$/pro-interhyp-frontend" />
++    </ignored-roots>
++  </component>
+ </project>
+\ No newline at end of file

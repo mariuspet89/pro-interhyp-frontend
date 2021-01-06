@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import userList from "../styles/users.module.css";
 
 const User = ({user}) => {
   return (
@@ -10,7 +11,7 @@ const User = ({user}) => {
 			<td>{user.details}</td>
 			<td>{user.birthday}</td>
 			<td>
-			<Link to={{pathname: `/details/${user.id}`, state: {user: user}}}>
+			<Link to={{pathname: `/details/${user.id}`, state: {user: user}}} className={userList.detailsLink}>
 				See Details
 			</Link>
 			</td>
