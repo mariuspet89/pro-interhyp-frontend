@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import axios from "axios";
 import User from "./User";
+import tableStyle from '../styles/users.module.css'
 
 class Users extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -21,10 +21,10 @@ class Users extends Component {
 
     render() {
         return (
-					<div className='container'>
-						<h3 id='tableTitle'>Users</h3>
-						<div className='container'>
-							<table className='table-content'>
+					<>
+						<h2>Users</h2>
+						<div>
+							<table className={tableStyle.tableContent}>
 								<thead>
 									<tr>
 										<th>First Name</th>
@@ -42,7 +42,7 @@ class Users extends Component {
 								</tbody>
 							</table>
 						</div>
-					</div>
+					</>
 				);
     }
 }

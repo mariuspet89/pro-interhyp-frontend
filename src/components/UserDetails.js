@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import "../styles/UserDetails.css"
+import userStyles from '../styles/UserDetails.module.css'
 
 const UserDetails = (props) => {
 
@@ -12,12 +12,16 @@ const UserDetails = (props) => {
   }, [props.location.state.user])
 
   return (
-    <div className="user-container">
-      <h4 className="username-muted">{user.username}</h4>
-      <h2>{user.firstName} {user.lastName}</h2>
-      <h3>{user.details}, born on {user.birthday}</h3>
-    </div>
-  )
+		<div className={userStyles.userContainer}>
+			<h4 className={userStyles.usernameMuted}>{user.username}</h4>
+			<h2>
+				{user.firstName} {user.lastName}
+			</h2>
+			<h3>
+				{user.details}, born on {user.birthday}
+			</h3>
+		</div>
+	);
 }
 
 export default UserDetails
