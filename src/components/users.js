@@ -21,29 +21,29 @@ class Users extends Component {
 
     render() {
         return (
-            <div className="container">
-                <h3 id="tableTitle">Users</h3>
-                <div className="container">
-                    <table className="table-content">
-                        <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>First Name</th>
-                            <th>Name</th>
-                            <th>Job</th>
-                            <th>Birthday</th>
-                            <th>Details</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {this.state.users.map(user =>
-                            <User key={user.id} user={user}/>
-                        )}
-                        </tbody>
-
-                    </table>
-                </div>
-            </div>)
+					<div className='container'>
+						<h3 id='tableTitle'>Users</h3>
+						<div className='container'>
+							<table className='table-content'>
+								<thead>
+									<tr>
+										<th>First Name</th>
+										<th>Last Name</th>
+										<th>Username</th>
+										<th>Job</th>
+										<th>Birthday</th>
+										<th>Details</th>
+									</tr>
+								</thead>
+								<tbody>
+									{this.state.users.map((user) => (
+										<User key={user.id} user={user} />
+									))}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				);
     }
 }
 

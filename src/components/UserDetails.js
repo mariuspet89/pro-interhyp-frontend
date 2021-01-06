@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import "../styles/UserDetails.css"
 
 const UserDetails = (props) => {
 
@@ -11,8 +12,10 @@ const UserDetails = (props) => {
   }, [props.location.state.user])
 
   return (
-    <div>
-      <p>{user.firstName} {user.lastName}</p>
+    <div className="user-container">
+      <h4 className="username-muted">{user.username}</h4>
+      <h2>{user.firstName} {user.lastName}</h2>
+      <h3>{user.details}, born on {user.birthday}</h3>
     </div>
   )
 }
