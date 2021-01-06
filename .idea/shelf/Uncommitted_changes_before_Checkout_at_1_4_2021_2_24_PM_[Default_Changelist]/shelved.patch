@@ -1,0 +1,26 @@
+Index: src/App.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import \"./App.css\";\r\nimport Users from \"./components/users\";\r\nimport React from \"react\";\r\n\r\nfunction App() {\r\n  return (\r\n   \r\n      <div className=\"App\">\r\n        <header className=\"App-header\">\r\n         <Users/>\r\n        </header>\r\n      </div>\r\n  \r\n  );\r\n}\r\n\r\nexport default App;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/App.js b/src/App.js
+--- a/src/App.js	(revision 0261215351daa45125059a2d04ab4e3a00e425d6)
++++ b/src/App.js	(date 1609760803792)
+@@ -1,6 +1,7 @@
+ import "./App.css";
+ import Users from "./components/users";
+ import React from "react";
++import UserById from "./components/getBy_ID_feature";
+ 
+ function App() {
+   return (
+@@ -8,6 +9,7 @@
+       <div className="App">
+         <header className="App-header">
+          <Users/>
++         {/*<UserById/>*/}
+         </header>
+       </div>
+   
