@@ -40,3 +40,28 @@
 .detailsLink:hover {
     color: #009879;
 }
+.deleteButton {
+    /*background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);*/
+    /*background-color:#d0451b;*/
+    border-radius: 42px;
+    border: 1px solid #942911;
+    /*display: inline-block;*/
+    cursor: pointer;
+    color: #030303;
+    font-family: Arial;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 5px 6px;
+    text-decoration: none;
+    object-position: center;
+    background-color: white;
+    vertical-align: middle;
+}
+.deleteButton:hover {
+    background: linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
+    color: white;
+}
+.deleteButton:active {
+    position: relative;
+    top: 1px;
+}

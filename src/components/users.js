@@ -111,6 +111,7 @@ class Users extends Component {
 											</span>
 										</th>
 										<th>Details</th>
+										<th/>
 									</tr>
 								</thead>
 								<tbody>
