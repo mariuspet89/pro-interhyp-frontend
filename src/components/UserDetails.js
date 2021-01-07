@@ -10,6 +10,7 @@ const UserDetails = (props) => {
   const [user, setUser] = useState({})
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
   const [birthday, setBirthday] = useState("");
   const [job, setJob] = useState("");
   const history = useHistory()
@@ -22,7 +23,7 @@ const UserDetails = (props) => {
   }, [props.location.state.user])
 
   function updateUser(){
-	
+	console.log("user", user)
   }
 
   return (
@@ -63,6 +64,24 @@ const UserDetails = (props) => {
 				value={lastName}
 				onChange={e => {setLastName(e.target.value);
 								 user.lastName=e.target.value; 
+								}}
+				/>
+  				</Editable>
+			</div>
+			<div>
+				Username: 
+				<Editable
+				text={username}
+				placeholder={user.username}
+				type="input" className={userStyles.margin}
+			>
+				<input
+				type="text" className={userStyles.margin}
+				name="task"
+				placeholder={user.username}
+				value={username}
+				onChange={e => {setUsername(e.target.value);
+								 user.username=e.target.value; 
 								}}
 				/>
   				</Editable>
