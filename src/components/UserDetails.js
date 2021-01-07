@@ -21,6 +21,10 @@ const UserDetails = (props) => {
     }
   }, [props.location.state.user])
 
+  function updateUser(){
+	
+  }
+
   return (
 	  <Card className={userStyles.userContainer}>
 		<Card.Header as="h3">{user.firstName} {user.lastName}</Card.Header>	
@@ -102,7 +106,7 @@ const UserDetails = (props) => {
 			</div>
 			<div className={userStyles.down}>
 			<Button variant="primary" className={userStyles.margin} onClick={() => {history.goBack()}}>Go back</Button>
-			<Button variant="success" className={userStyles.margin}>Update</Button>
+			<Button variant="success" className={userStyles.margin} onClick={()=>updateUser()}>Update</Button>
 			</div>
 			</Card.Body>
 		</Card>
