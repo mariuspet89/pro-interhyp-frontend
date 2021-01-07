@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react'
 import userStyles from '../styles/UserDetails.module.css'
 import Button from 'react-bootstrap/Button'
 import Editable from './editable'
+import { Card } from 'react-bootstrap'
+import { useHistory } from 'react-router-dom';
 
 const UserDetails = (props) => {
 
@@ -10,6 +12,7 @@ const UserDetails = (props) => {
   const [lastName, setLastName] = useState("");
   const [birthday, setBirthday] = useState("");
   const [job, setJob] = useState("");
+  const history = useHistory()
   
 
   useEffect(() => {
@@ -19,20 +22,20 @@ const UserDetails = (props) => {
   }, [props.location.state.user])
 
   return (
-	  <div className='user-container'>
-	
-		
-		<div className="userContainer ">
-		<h4>{user.firstName} {user.lastName}</h4>			
+	  <Card className={userStyles.userContainer}>
+		<Card.Header as="h3">{user.firstName} {user.lastName}</Card.Header>	
+		<Card.Body>
+			<div className={userStyles.info}>✏️ click on the values you want to modify</div>
+			<div className={userStyles.userData}>		
 			<div>
-				First Name: 
+				First Name:  
 				<Editable
 				text={firstName}
 				placeholder={user.firstName}
-				type="input"
+				type="input" className={userStyles.margin}
 			>
 				<input
-				type="text"
+				type="text" className={userStyles.margin}
 				name="task"
 				placeholder={user.firstName}
 				value={firstName}
@@ -47,10 +50,10 @@ const UserDetails = (props) => {
 				<Editable
 				text={lastName}
 				placeholder={user.lastName}
-				type="input"
+				type="input" className={userStyles.margin}
 			>
 				<input
-				type="text"
+				type="text" className={userStyles.margin}
 				name="task"
 				placeholder={user.lastName}
 				value={lastName}
@@ -63,12 +66,12 @@ const UserDetails = (props) => {
 			<div>
 				Date of birth: 
 				<Editable
-				text={birthday}
+				text={birthday} className={userStyles.margin}
 				placeholder={user.birthday}
 				type="input"
 			>
 				<input
-				type="date"
+				type="date" className={userStyles.margin}
 				name="task"
 				placeholder={user.birthday}
 				value={birthday}
@@ -81,12 +84,12 @@ const UserDetails = (props) => {
 			<div>
 				Job title: 
 				<Editable
-				text={job}
+				text={job} className={userStyles.margin}
 				placeholder={user.details}
 				type="input"
 			>
 				<input
-				type="text"
+				type="text" className={userStyles.margin}
 				name="task"
 				placeholder={user.details}
 				value={job}
@@ -96,10 +99,13 @@ const UserDetails = (props) => {
 				/>
   				</Editable>
 			</div>
-			<Button variant="primary">Go back</Button>
-			<Button variant="success">Update</Button>
-		</div>
-		</div>
+			</div>
+			<div className={userStyles.down}>
+			<Button variant="primary" className={userStyles.margin} onClick={() => {history.goBack()}}>Go back</Button>
+			<Button variant="success" className={userStyles.margin}>Update</Button>
+			</div>
+			</Card.Body>
+		</Card>
 	);
 }
 
