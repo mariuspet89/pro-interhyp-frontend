@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 import Editable from './editable'
 import { Card } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom';
+import axios from "axios";
 
 const UserDetails = (props) => {
 
@@ -13,7 +14,8 @@ const UserDetails = (props) => {
   const [username, setUsername] = useState("");
   const [birthday, setBirthday] = useState("");
   const [job, setJob] = useState("");
-  const history = useHistory()
+  const history = useHistory();
+  
   
 
   useEffect(() => {
@@ -23,7 +25,16 @@ const UserDetails = (props) => {
   }, [props.location.state.user])
 
   function updateUser(){
-	console.log("user", user)
+	  //console.log()
+	axios.put("http://20.52.146.224:8080/users", 
+		user
+	)
+	.then(response => {
+		console.log(response);
+	})
+	.catch(error => {
+		console.log(error);
+	});
   }
 
   return (
