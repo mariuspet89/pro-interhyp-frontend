@@ -12,6 +12,11 @@ class Users extends Component {
 					activePage: 1,
 					usersPerPage: 10,
 					currentUsers: 1,
+					sortFirstName: false,
+					sortLastName: false,
+					sortUsername: false,
+					sortJob: false,
+					sortBirthday: false,
 				};
 		}
 
@@ -24,13 +29,40 @@ class Users extends Component {
 	handlePageChange(pageNumber) {
     console.log(`active page is ${pageNumber}`);
     this.setState({activePage: pageNumber});
-  }
-	
-    render() {
+	}
+
+	render() {
 		const indexOfLastUser = this.state.activePage * this.state.usersPerPage;
     const indexOfFirstUser = indexOfLastUser - this.state.usersPerPage;
 		const currentUsers = this.state.users.slice(indexOfFirstUser,indexOfLastUser);
-		
+
+		const handleSort = (e) => {
+			switch (e.target.parentElement.id) {
+				case "firstName":
+					// call BE & check for true/false before changing state
+					this.setState({ sortFirstName: !this.state.sortFirstName });
+					break;
+				case "lastName":
+					// call BE & check for true/false before changing state
+					this.setState({ sortLastName: !this.state.sortLastName });
+					break;
+				case "username":
+					// call BE & check for true/false before changing state
+					this.setState({ sortUsername: !this.state.sortUsername });
+					break;
+				case "job":
+					// call BE & check for true/false before changing state
+					this.setState({ sortJob: !this.state.sortJob });
+					break;
+				case "birthday":
+					// call BE & check for true/false before changing state
+					this.setState({ sortBirthday: !this.state.sortBirthday });
+					break;
+				default:
+					return;
+			}
+		}
+
         return (
 					<>
 						<h2>Users</h2>
@@ -38,12 +70,48 @@ class Users extends Component {
 							<table className={userList.tableContent}>
 								<thead>
 									<tr>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Username</th>
-										<th>Job</th>
-										<th>Birthday</th>
+										<th id='firstName'>
+											First Name
+											<span
+												className={userList.sortArrow}
+												onClick={(e) => handleSort(e)}>
+												{this.state.sortFirstName ? "▲" : "▼"}
+											</span>
+										</th>
+										<th id='lastName'>
+											Last Name
+											<span
+												className={userList.sortArrow}
+												onClick={(e) => handleSort(e)}>
+												{this.state.sortLastName ? "▲" : "▼"}
+											</span>
+										</th>
+										<th id='username'>
+											Username
+											<span
+												className={userList.sortArrow}
+												onClick={(e) => handleSort(e)}>
+												{this.state.sortUsername ? "▲" : "▼"}
+											</span>
+										</th>
+										<th id='job'>
+											Job
+											<span
+												className={userList.sortArrow}
+												onClick={(e) => handleSort(e)}>
+												{this.state.sortJob ? "▲" : "▼"}
+											</span>
+										</th>
+										<th id='birthday'>
+											Birthday
+											<span
+												className={userList.sortArrow}
+												onClick={(e) => handleSort(e)}>
+												{this.state.sortBirthday ? "▲" : "▼"}
+											</span>
+										</th>
 										<th>Details</th>
+										<th/>
 									</tr>
 								</thead>
 								<tbody>
@@ -53,14 +121,13 @@ class Users extends Component {
 								</tbody>
 							</table>
 						</div>
-							<Pagination
-								activePage={this.state.activePage}
-								itemsCountPerPage={this.state.usersPerPage}
-								totalItemsCount={this.state.users.length}
-								pageRangeDisplayed={5}
-								className="pagination"
-								onChange={this.handlePageChange.bind(this)}
-							/>
+						<Pagination
+							activePage={this.state.activePage}
+							itemsCountPerPage={this.state.usersPerPage}
+							totalItemsCount={this.state.users.length}
+							pageRangeDisplayed={5}
+							onChange={this.handlePageChange.bind(this)}
+						/>
 					</>
 				);
 		}
