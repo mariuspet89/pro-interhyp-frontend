@@ -18,7 +18,8 @@ class Users extends Component {
 					sortJob: false,
 					sortBirthday: false,
 				};
-		}
+ 		}
+		
 
   componentDidMount() {
     axios.get("http://20.52.146.224:8080/users").then((response) => {
