@@ -58,7 +58,7 @@ class Users extends Component {
 	async deleteUser(id) {
 			if (window.confirm("Are you sure you want to delete?")) {
 				try {
-					await axios.delete( "http://20.52.146.224:8080/users/" + id)
+					await axios.delete( "http://20.52.146.224:8080/users/" + id)	
 						.then((response) => {
 							this.setState({users: response.data})
 					})
