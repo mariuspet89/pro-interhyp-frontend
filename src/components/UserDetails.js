@@ -17,23 +17,23 @@ const UserDetails = (props) => {
     }
   }, [props.location.state.user])
 
-  const updateUser = () => {
-		axios.put("http://20.52.146.224:8080/users", user)
-			.then(response => {
-				console.log(response);
-			})
-			.catch(error => {
-				console.log(error);
-			});
-	}
-
 	const handleChange = (e) => {
 			setUser({
 				...user,
 				[e.target.name]: e.target.value,
 			});
-			console.log(user)
 		};
+
+  const updateUser = () => {
+		axios
+			.put("http://20.52.146.224:8080/users", user)
+			.then((response) => {
+				console.log(response);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
 
   return (
 		<Card className={userStyles.userContainer}>
@@ -42,7 +42,7 @@ const UserDetails = (props) => {
 			</Card.Header>
 			<Card.Body>
 				<div className={userStyles.info}>
-					✏️ click on the values you want to modify
+				✏️ click on the values you want to modify
 				</div>
 				<div className={userStyles.userData}>
 					<div>
