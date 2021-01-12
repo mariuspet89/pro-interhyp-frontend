@@ -28,7 +28,7 @@ const UserDetails = (props) => {
 		axios
 			.put("http://20.52.146.224:8080/users", user)
 			.then((response) => {
-				console.log(response);
+				console.log("User updated");
 			})
 			.catch((error) => {
 				console.log(error);
@@ -73,7 +73,7 @@ const UserDetails = (props) => {
 								className={userStyles.margin}
 								name='lastName'
 								placeholder={user.lastName}
-								value={user.lastName}
+								value={user.lastName}	
 								onChange={handleChange}
 							/>
 						</Editable>

@@ -20,10 +20,14 @@ class Users extends Component {
 		};
 	}
 
-	componentDidMount() {
+	updateUsers = () => {
 		axios.get("http://20.52.146.224:8080/users").then((response) => {
 			this.setState({ users: response.data });
 		});
+	}
+
+	componentDidMount() {
+		this.updateUsers()
 	}
 
 	handleSort = (e) => {
@@ -55,12 +59,12 @@ class Users extends Component {
 		this.setState({ activePage: pageNumber });
 	}
 
-	async deleteUser(id) {
+	deleteUser = (id) => {
 			if (window.confirm("Are you sure you want to delete?")) {
 				try {
-					await axios.delete( "http://20.52.146.224:8080/users/" + id)	
-						.then((response) => {
-							this.setState({users: response.data})
+					axios.delete( "http://20.52.146.224:8080/users/" + id)	
+						.then(() => {
+							this.updateUsers();
 					})
 				} catch(err) {
 					console.log(err)
