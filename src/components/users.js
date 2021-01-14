@@ -59,10 +59,10 @@ class Users extends Component {
 		this.setState({ activePage: pageNumber });
 	}
 
-	deleteUser = (id) => {
+	deleteUser = (id, company) => {
 			if (window.confirm("Are you sure you want to delete?")) {
 				try {
-					axios.delete( "http://20.52.146.224:8080/users/" + id)	
+					axios.delete( "http://20.52.146.224:8080/users/" + id + "/" + company)	
 						.then(() => {
 							this.updateUsers();
 					})

@@ -5,8 +5,8 @@ import Button from "react-bootstrap/Button";
 
 const User = ({user, deleteUser}) => {
 
-	const handleDelete = (id) => {
-		deleteUser(id)
+	const handleDelete = (id, company) => {
+		deleteUser(id, company)
 	}
 
   return (
@@ -27,7 +27,7 @@ const User = ({user, deleteUser}) => {
 				<Button
 					variant='outline-danger'
 					className='deleteButton'
-					onClick={() => handleDelete(user.id)}>
+					onClick={() => handleDelete(user.id, user.company)}>
 					Delete
 				</Button>
 			</td>
