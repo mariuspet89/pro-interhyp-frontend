@@ -3,6 +3,8 @@ import axios from "axios";
 import Pagination from "react-js-pagination";
 import User from "./User";
 import userList from "../styles/users.module.css";
+import Button from 'react-bootstrap/Button'
+import { Link } from 'react-router-dom';
 
 class Users extends Component {
   constructor(props) {
@@ -20,11 +22,20 @@ class Users extends Component {
     };
   }
 
+<<<<<<< HEAD
   updateUsers = () => {
     axios.get("http://20.52.146.224:8080/users").then((response) => {
       this.setState({ users: response.data });
     });
   };
+=======
+	updateUsers = () => {
+			//axios.get("http://127.0.0.1:8080/users").then((response) => {
+			axios.get("http://20.52.146.224:8080/users").then((response) => {
+				this.setState({ users: response.data });
+			});
+		}
+>>>>>>> 09d415ef6e2aa7031d4dd389beb09bffda929be5
 
   componentDidMount() {
     // this.setState({
@@ -205,6 +216,7 @@ class Users extends Component {
     }
   };
 
+<<<<<<< HEAD
   render() {
     const indexOfLastUser = this.state.activePage * this.state.usersPerPage;
     const indexOfFirstUser = indexOfLastUser - this.state.usersPerPage;
@@ -286,6 +298,82 @@ class Users extends Component {
       </>
     );
   }
+=======
+		return (
+			<>
+				<h2>Users</h2>
+				<div>
+					<table className={userList.tableContent}>
+						<thead>
+							<tr>
+								<th id='firstName'>
+									First Name
+									<span
+										className={userList.sortArrow}
+										onClick={(e) => this.handleSort(e)}>
+										{this.state.sortFirstName ? "▲" : "▼"}
+									</span>
+								</th>
+								<th id='lastName'>
+									Last Name
+									<span
+										className={userList.sortArrow}
+										onClick={(e) => this.handleSort(e)}>
+										{this.state.sortLastName ? "▲" : "▼"}
+									</span>
+								</th>
+								<th id='username'>
+									Username
+									<span
+										className={userList.sortArrow}
+										onClick={(e) => this.handleSort(e)}>
+										{this.state.sortUsername ? "▲" : "▼"}
+									</span>
+								</th>
+								<th id='job'>
+									Job
+									<span
+										className={userList.sortArrow}
+										onClick={(e) => this.handleSort(e)}>
+										{this.state.sortJob ? "▲" : "▼"}
+									</span>
+								</th>
+								<th id='birthday'>
+									Birthday
+									<span
+										className={userList.sortArrow}
+										onClick={(e) => this.handleSort(e)}>
+										{this.state.sortBirthday ? "▲" : "▼"}
+									</span>
+								</th>
+								<th>Details</th>
+								<th>
+								<Link
+									to={{ pathname: `/create` }}
+									className={userList.detailsLink}>
+									<Button  variant="outline-light" size="lg"> Add new user</Button>
+								</Link>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							{currentUsers.map((user) => (
+								<User key={user.id} user={user} deleteUser={this.deleteUser} />
+							))}
+						</tbody>
+					</table>
+				</div>
+				<Pagination
+					activePage={this.state.activePage}
+					itemsCountPerPage={this.state.usersPerPage}
+					totalItemsCount={this.state.users.length}
+					pageRangeDisplayed={5}
+					onChange={this.handlePageChange.bind(this)}
+				/>
+			</>
+		);
+	}
+>>>>>>> 09d415ef6e2aa7031d4dd389beb09bffda929be5
 }
 
 export default Users;
