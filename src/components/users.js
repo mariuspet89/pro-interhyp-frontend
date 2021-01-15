@@ -3,6 +3,8 @@ import axios from "axios";
 import Pagination from "react-js-pagination";
 import User from "./User";
 import userList from "../styles/users.module.css";
+import Button from 'react-bootstrap/Button'
+import { Link } from 'react-router-dom';
 
 class Users extends Component {
 	constructor(props) {
@@ -20,11 +22,16 @@ class Users extends Component {
 		};
 	}
 
+	// updateUsers = () => {
+	// 	axios.get("http://20.52.146.224:8080/users").then((response) => {
+	// 		this.setState({ users: response.data });
+	// 	});
+	// }
 	updateUsers = () => {
-		axios.get("http://20.52.146.224:8080/users").then((response) => {
-			this.setState({ users: response.data });
-		});
-	}
+			axios.get("http://127.0.0.1:8080/users").then((response) => {
+				this.setState({ users: response.data });
+			});
+		}
 
 	componentDidMount() {
 		this.updateUsers()
@@ -130,7 +137,13 @@ class Users extends Component {
 									</span>
 								</th>
 								<th>Details</th>
-								<th />
+								<th>
+								<Link
+									to={{ pathname: `/create` }}
+									className={userList.detailsLink}>
+									<Button  variant="outline-light" size="lg"> Add new user</Button>
+								</Link>
+								</th>
 							</tr>
 						</thead>
 						<tbody>

@@ -3,13 +3,12 @@ import userStyles from '../styles/UserDetails.module.css'
 import Button from 'react-bootstrap/Button'
 import Editable from './editable'
 import { Card } from 'react-bootstrap'
-import { useHistory } from 'react-router-dom';
 import axios from "axios";
+import  Back from './Back'
 
 const UserDetails = (props) => {
 
   const [user, setUser] = useState({})
-  const history = useHistory();
 
   useEffect(() => {
     if (props.location.state.user) {
@@ -131,14 +130,7 @@ const UserDetails = (props) => {
 					</div>
 				</div>
 				<div className={userStyles.down}>
-					<Button
-						variant='primary'
-						className={userStyles.margin}
-						onClick={() => {
-							history.goBack();
-						}}>
-						Go back
-					</Button>
+					<Back/>
 					<Button
 						variant='success'
 						className={userStyles.margin}
