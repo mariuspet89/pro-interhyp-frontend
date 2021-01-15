@@ -156,7 +156,14 @@ class Users extends Component {
                   </span>
                 </th>
                 <th>Details</th>
-                <th />
+                <th>
+								<Link
+									to={{ pathname: `/create` }}
+									className={userList.detailsLink}>
+									<Button  variant="outline-light" size="lg"> Add new user</Button>
+								</Link>
+								</th>
+
               </tr>
             </thead>
             <tbody>
