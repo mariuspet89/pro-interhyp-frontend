@@ -22,13 +22,9 @@ class Users extends Component {
 		};
 	}
 
-	// updateUsers = () => {
-	// 	axios.get("http://20.52.146.224:8080/users").then((response) => {
-	// 		this.setState({ users: response.data });
-	// 	});
-	// }
 	updateUsers = () => {
-			axios.get("http://127.0.0.1:8080/users").then((response) => {
+			//axios.get("http://127.0.0.1:8080/users").then((response) => {
+			axios.get("http://20.52.146.224:8080/users").then((response) => {
 				this.setState({ users: response.data });
 			});
 		}

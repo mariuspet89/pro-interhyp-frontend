@@ -18,13 +18,16 @@ class CreateUser extends React.Component {
     createUser= () => {
         if(this.handleValidation()){
             console.log(this.state.fields);
-            axios.put("http://127.0.0.1:8080/users", this.state.fields)
+            axios.post("http://20.52.146.224:8080/users", this.state.fields)
             .then((response)=>{
                 console.log("response: ",response)
             })
             .catch((error)=>{
                 console.log(error)
             });
+        }
+        else {
+            
         }
     }
 
@@ -50,9 +53,9 @@ class CreateUser extends React.Component {
             formIsValid = false;
             errors["birthday"] = "empty";
          }
-         if(!fields["job"]){
+         if(!fields["details"]){
             formIsValid = false;
-            errors["job"] = "empty";
+            errors["details"] = "empty";
          }        
 
        this.setState({errors: errors});
@@ -74,6 +77,7 @@ class CreateUser extends React.Component {
             </Card.Header>
             <Card.Body>
                 <form className={userStyles.userData}>
+                <h5> ✔️ All fields are required</h5>
                 <label >
                     First name:
                     <input style= { this.state.errors["firstName"]===undefined ? { }: { backgroundColor: 'rgba(255, 0, 0, 0.082)'}}
@@ -100,8 +104,8 @@ class CreateUser extends React.Component {
                 <br/>
                 <label>
                     Job title:
-                    <input style= { this.state.errors["job"]===undefined ?{ }: { backgroundColor: 'rgba(255, 0, 0, 0.082)'}}
-                    type="text" name="job" onChange={this.handleChange.bind(this, "job")}/>
+                    <input style= { this.state.errors["details"]===undefined ?{ }: { backgroundColor: 'rgba(255, 0, 0, 0.082)'}}
+                    type="text" name="details" onChange={this.handleChange.bind(this, "details")}/>
                 </label>
                 </form>
                 <div className={userStyles.down}>
