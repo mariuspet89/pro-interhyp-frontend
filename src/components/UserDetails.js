@@ -5,11 +5,13 @@ import Editable from './editable'
 import { Card } from 'react-bootstrap'
 import axios from "axios";
 import  Back from './Back'
+import Modal from './Modal'
 
 const UserDetails = (props) => {
 
   const [user, setUser] = useState({})
-
+  const [open, setOpen] =useState(false);
+	
   useEffect(() => {
     if (props.location.state.user) {
       setUser(props.location.state.user)
@@ -22,7 +24,7 @@ const UserDetails = (props) => {
 				[e.target.name]: e.target.value,
 			});
 		};
-
+		
   const updateUser = () => {
 		axios
 			.put("http://20.52.146.224:8080/users", user)
@@ -32,9 +34,14 @@ const UserDetails = (props) => {
 			.catch((error) => {
 				console.log(error);
 			});
+		setOpen({open: true});
 	};
 
   return (
+	  <div>
+		<Modal isOpen={open} onClose= {(e)=> setOpen(open=> open=false)}> 
+			User was sucesfully updated
+		</Modal>
 		<Card className={userStyles.userContainer}>
 			<Card.Header as='h3'>
 				{user.firstName} {user.lastName}
@@ -140,6 +147,7 @@ const UserDetails = (props) => {
 				</div>
 			</Card.Body>
 		</Card>
+	</div>
 	);
 }
 
