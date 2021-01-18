@@ -21,6 +21,9 @@ class Users extends Component {
       sortBirthday: false,
     };
   }
+  setUserPerPage(e) {
+    this.setState({ usersPerPage: e.target.value });
+  }
 
   updateUsers = () => {
     axios.get("http://20.52.146.224:8080/users").then((response) => {
@@ -156,6 +159,18 @@ class Users extends Component {
                   </span>
                 </th>
                 <th>Details</th>
+                <th>
+                  <label for="usersPerPage">Users Per Page</label>
+                  <select
+                    name="usersPerPage"
+                    value={this.state.usersPerPage}
+                    onChange={(e) => this.setUserPerPage(e)}
+                  >
+                    <option>5</option>
+                    <option>10</option>
+                    <option>15</option>
+                  </select>
+                </th>
                 <th />
               </tr>
             </thead>
