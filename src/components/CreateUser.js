@@ -4,6 +4,7 @@ import { Card } from 'react-bootstrap'
 import userStyles from '../styles/UserDetails.module.css'
 import axios from "axios";
 import Back from './Back'
+import Modal from './Modal'
 
 class CreateUser extends React.Component {
     constructor(props){
@@ -11,7 +12,8 @@ class CreateUser extends React.Component {
    
         this.state = {
             fields: { company: 'accesa', },
-            errors: {}
+            errors: {},
+            open: false,
         }
      }
    
@@ -25,6 +27,7 @@ class CreateUser extends React.Component {
             .catch((error)=>{
                 console.log(error)
             });
+            this.setState({open: true})
         }
         else {
             
@@ -71,6 +74,7 @@ class CreateUser extends React.Component {
     render(){ 
         return(
         <div>
+        <Modal isOpen={this.state.open} onClose= {(e)=> this.setState({open: false})}> User was sucesfully created</Modal>
         <Card  className={userStyles.userContainer}>
             <Card.Header>
                 Create new user

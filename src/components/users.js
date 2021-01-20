@@ -19,6 +19,8 @@ class Users extends Component {
       sortUserName: false,
       sortDetails: false,
       sortBirthday: false,
+      searchValue: "",
+      filteredUsers: [],
     };
   }
   setUserPerPage(e) {
@@ -50,6 +52,15 @@ class Users extends Component {
       });
     }
   };
+  searchUser(e) {
+    this.setState({ searchValue: e.target.value });
+    console.log(e.target.value);
+    const filteredUser = this.state.users.filter((user) =>
+      user.firstName.toUpperCase().includes(e.target.value.toUpperCase())
+    );
+    this.setState({ filteredUsers: filteredUser });
+    console.log(this.state.users.map((x) => Object.values(x)));
+  }
 
   handleSort = (e) => {
     switch (e.target.parentElement.id) {
@@ -101,14 +112,33 @@ class Users extends Component {
   render() {
     const indexOfLastUser = this.state.activePage * this.state.usersPerPage;
     const indexOfFirstUser = indexOfLastUser - this.state.usersPerPage;
-    const currentUsers = this.state.users.slice(
+    let currentUsers = this.state.users.slice(
       indexOfFirstUser,
       indexOfLastUser
     );
+    if (this.state.searchValue != "") {
+      currentUsers = this.state.filteredUsers.slice(
+        indexOfFirstUser,
+        indexOfLastUser
+      );
+    }
 
     return (
       <>
         <h2>Users</h2>
+        <input type="text" onChange={(e) => this.searchUser(e)} />
+        <div>
+          <label for="usersPerPage">Users Per Page </label>
+          <select
+            name="usersPerPage"
+            value={this.state.usersPerPage}
+            onChange={(e) => this.setUserPerPage(e)}
+          >
+            <option>5</option>
+            <option>10</option>
+            <option>15</option>
+          </select>
+        </div>
         <div>
           <table className={userList.tableContent}>
             <thead>
@@ -159,19 +189,18 @@ class Users extends Component {
                   </span>
                 </th>
                 <th>Details</th>
+
                 <th>
-                  <label for="usersPerPage">Users Per Page</label>
-                  <select
-                    name="usersPerPage"
-                    value={this.state.usersPerPage}
-                    onChange={(e) => this.setUserPerPage(e)}
+                  <Link
+                    to={{ pathname: `/create` }}
+                    className={userList.detailsLink}
                   >
-                    <option>5</option>
-                    <option>10</option>
-                    <option>15</option>
-                  </select>
+                    <Button variant="outline-light" size="lg">
+                      {" "}
+                      Add new user
+                    </Button>
+                  </Link>
                 </th>
-                <th />
               </tr>
             </thead>
             <tbody>
