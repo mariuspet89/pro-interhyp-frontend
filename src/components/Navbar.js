@@ -15,7 +15,7 @@ const Navbar = () => {
   if (location.pathname === "/")
     search = (
       <div className="right">
-        <input type="text" onChange={handleChange} />
+        <input type="text" onChange={handleChange} placeholder="Search" />
       </div>
     );
   let navbar = (
