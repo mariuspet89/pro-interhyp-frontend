@@ -38,7 +38,6 @@ function Users() {
   }, []);
 
   useEffect(() => {
-    // setState({ ...state, searchValue: searchValue });
     const filteredUser = state.users.filter((user) =>
       user.firstName.toUpperCase().includes(searchValue.toUpperCase())
     );
@@ -63,15 +62,6 @@ function Users() {
       });
     }
   };
-  // searchUser(e) {
-  //   this.setState({ searchValue: e.target.value });
-  //   console.log(e.target.value);
-  //   const filteredUser = this.state.users.filter((user) =>
-  //     user.firstName.toUpperCase().includes(e.target.value.toUpperCase())
-  //   );
-  //   this.setState({ filteredUsers: filteredUser });
-  //   console.log(this.state.users.map((x) => Object.values(x)));
-  // }
 
   const handleSort = (e) => {
     switch (e.target.parentElement.id) {
@@ -129,7 +119,6 @@ function Users() {
   return (
     <>
       <h2>Users</h2>
-      {/* <input type="text" onChange={(e) => searchUser(e)} /> */}
       <div>
         <label htmlFor="usersPerPage">Users Per Page </label>
         <select
