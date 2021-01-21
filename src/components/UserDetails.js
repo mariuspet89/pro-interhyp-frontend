@@ -3,7 +3,7 @@ import userStyles from '../styles/UserDetails.module.css'
 import Button from 'react-bootstrap/Button'
 import Editable from './editable'
 import { Card } from 'react-bootstrap'
-import axios from "axios";
+import axios from "axios"
 import  Back from './Back'
 import Modal from './Modal'
 
