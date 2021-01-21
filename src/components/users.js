@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Pagination from "react-js-pagination";
 import User from "./User";
 import userList from "../styles/users.module.css";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import { SearchContext } from "./searchContext";
 
 function Users() {
   const [state, setState] = useState({
@@ -20,11 +21,11 @@ function Users() {
     searchValue: "",
     filteredUsers: [],
   });
+  const [searchValue, setSearchValue] = useContext(SearchContext);
 
   const setUserPerPage = (e) => {
     setState({ ...state, usersPerPage: parseInt(e.target.value) });
   };
-  console.log(state);
 
   const updateUsers = () => {
     axios.get("http://20.71.162.122:8080/users").then((response) => {
@@ -33,12 +34,17 @@ function Users() {
   };
 
   useEffect(() => {
-    axios.get("http://20.52.146.224:8080/users/").then((response) => {
-      setState({ ...state, users: response.data });
-      console.log(response.data);
-    });
-    console.log(state);
+    updateUsers();
   }, []);
+
+  useEffect(() => {
+    // setState({ ...state, searchValue: searchValue });
+    const filteredUser = state.users.filter((user) =>
+      user.firstName.toUpperCase().includes(searchValue.toUpperCase())
+    );
+
+    setState({ ...state, filteredUsers: filteredUser });
+  }, [searchValue]);
 
   const sortField = (field) => {
     if (state[`sort${field.charAt(0).toUpperCase() + field.slice(1)}`]) {
@@ -117,7 +123,7 @@ function Users() {
   const indexOfFirstUser = indexOfLastUser - state.usersPerPage;
   let currentUsers = state.users.slice(indexOfFirstUser, indexOfLastUser);
 
-  if (state.searchValue !== "") {
+  if (searchValue !== "") {
     currentUsers = state.filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
   }
   return (
@@ -195,7 +201,9 @@ function Users() {
       <Pagination
         activePage={state.activePage}
         itemsCountPerPage={state.usersPerPage}
-        totalItemsCount={state.users.length}
+        totalItemsCount={
+          searchValue !== "" ? state.filteredUsers.length : state.users.length
+        }
         pageRangeDisplayed={5}
         onChange={handlePageChange}
       />
