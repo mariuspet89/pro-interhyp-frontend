@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Pagination from "react-js-pagination";
 import User from "./User";
@@ -6,100 +6,105 @@ import userList from "../styles/users.module.css";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
-class Users extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      users: [],
-      currentUsers: 1,
-      activePage: 1,
-      usersPerPage: 10,
-      sortFirstName: false,
-      sortLastName: false,
-      sortUserName: false,
-      sortDetails: false,
-      sortBirthday: false,
-      searchValue: "",
-      filteredUsers: [],
-    };
-  }
-  setUserPerPage(e) {
-    this.setState({ usersPerPage: e.target.value });
-  }
+function Users() {
+  const [state, setState] = useState({
+    users: [],
+    currentUsers: 1,
+    activePage: 1,
+    usersPerPage: 10,
+    sortFirstName: false,
+    sortLastName: false,
+    sortUserName: false,
+    sortDetails: false,
+    sortBirthday: false,
+    searchValue: "",
+    filteredUsers: [],
+  });
 
-  updateUsers = () => {
-    axios.get("http://20.52.146.224:8080/users").then((response) => {
-      this.setState({ users: response.data });
+  const setUserPerPage = (e) => {
+    setState({ ...state, usersPerPage: parseInt(e.target.value) });
+  };
+  console.log(state);
+
+  const updateUsers = () => {
+    axios.get("http://20.71.162.122:8080/users").then((response) => {
+      setState({ ...state, users: response.data });
     });
   };
 
-  componentDidMount() {
-    this.updateUsers();
-  }
+  useEffect(() => {
+    axios.get("http://20.52.146.224:8080/users/").then((response) => {
+      setState({ ...state, users: response.data });
+      console.log(response.data);
+    });
+    console.log(state);
+  }, []);
 
-  sortField = (field) => {
-    if (this.state[`sort${field.charAt(0).toUpperCase() + field.slice(1)}`]) {
-      this.setState({
-        users: this.state.users.sort((a, b) =>
+  const sortField = (field) => {
+    if (state[`sort${field.charAt(0).toUpperCase() + field.slice(1)}`]) {
+      setState({
+        ...state,
+        users: state.users.sort((a, b) =>
           a[field]?.toUpperCase() > b[field]?.toUpperCase() ? -1 : 1
         ),
       });
     } else {
-      this.setState({
-        users: this.state.users.sort((a, b) =>
+      setState({
+        ...state,
+        users: state.users.sort((a, b) =>
           a[field]?.toUpperCase() > b[field]?.toUpperCase() ? 1 : -1
         ),
       });
     }
   };
-  searchUser(e) {
-    this.setState({ searchValue: e.target.value });
-    console.log(e.target.value);
-    const filteredUser = this.state.users.filter((user) =>
-      user.firstName.toUpperCase().includes(e.target.value.toUpperCase())
-    );
-    this.setState({ filteredUsers: filteredUser });
-    console.log(this.state.users.map((x) => Object.values(x)));
-  }
+  // searchUser(e) {
+  //   this.setState({ searchValue: e.target.value });
+  //   console.log(e.target.value);
+  //   const filteredUser = this.state.users.filter((user) =>
+  //     user.firstName.toUpperCase().includes(e.target.value.toUpperCase())
+  //   );
+  //   this.setState({ filteredUsers: filteredUser });
+  //   console.log(this.state.users.map((x) => Object.values(x)));
+  // }
 
-  handleSort = (e) => {
+  const handleSort = (e) => {
     switch (e.target.parentElement.id) {
       case "firstName":
-        this.sortField(e.target.parentElement.id);
-        this.setState({ sortFirstName: !this.state.sortFirstName });
+        sortField(e.target.parentElement.id);
+        setState({ ...state, sortFirstName: !state.sortFirstName });
         break;
       case "lastName":
-        this.sortField(e.target.parentElement.id);
-        this.setState({ sortLastName: !this.state.sortLastName });
+        sortField(e.target.parentElement.id);
+        setState({ ...state, sortLastName: !state.sortLastName });
         break;
       case "username":
-        this.sortField(e.target.parentElement.id);
-        this.setState({ sortUsername: !this.state.sortUsername });
+        sortField(e.target.parentElement.id);
+        setState({ ...state, sortUsername: !state.sortUsername });
         break;
       case "details":
-        this.sortField(e.target.parentElement.id);
-        this.setState({ sortDetails: !this.state.sortDetails });
+        sortField(e.target.parentElement.id);
+        setState({ ...state, sortDetails: !state.sortDetails });
         break;
       case "birthday":
-        this.sortField(e.target.parentElement.id);
-        this.setState({ sortBirthday: !this.state.sortBirthday });
+        sortField(e.target.parentElement.id);
+        setState({ ...state, sortBirthday: !state.sortBirthday });
         break;
       default:
         return;
     }
   };
 
-  handlePageChange(pageNumber) {
-    this.setState({ activePage: pageNumber });
-  }
+  const handlePageChange = (pageNumber) => {
+    setState({ ...state, activePage: pageNumber });
+  };
 
-  deleteUser = (id, company) => {
+  const deleteUser = (id, company) => {
     if (window.confirm("Are you sure you want to delete?")) {
       try {
         axios
           .delete("http://20.52.146.224:8080/users/" + id + "/" + company)
           .then(() => {
-            this.updateUsers();
+            updateUsers();
           });
       } catch (err) {
         console.log(err);
@@ -108,118 +113,94 @@ class Users extends Component {
       console.log("Delete, cancelled");
     }
   };
+  const indexOfLastUser = state.activePage * state.usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - state.usersPerPage;
+  let currentUsers = state.users.slice(indexOfFirstUser, indexOfLastUser);
 
-  render() {
-    const indexOfLastUser = this.state.activePage * this.state.usersPerPage;
-    const indexOfFirstUser = indexOfLastUser - this.state.usersPerPage;
-    let currentUsers = this.state.users.slice(
-      indexOfFirstUser,
-      indexOfLastUser
-    );
-    if (this.state.searchValue != "") {
-      currentUsers = this.state.filteredUsers.slice(
-        indexOfFirstUser,
-        indexOfLastUser
-      );
-    }
-
-    return (
-      <>
-        <h2>Users</h2>
-        <input type="text" onChange={(e) => this.searchUser(e)} />
-        <div>
-          <label for="usersPerPage">Users Per Page </label>
-          <select
-            name="usersPerPage"
-            value={this.state.usersPerPage}
-            onChange={(e) => this.setUserPerPage(e)}
-          >
-            <option>5</option>
-            <option>10</option>
-            <option>15</option>
-          </select>
-        </div>
-        <div>
-          <table className={userList.tableContent}>
-            <thead>
-              <tr>
-                <th id="firstName">
-                  First Name
-                  <span
-                    className={userList.sortArrow}
-                    onClick={(e) => this.handleSort(e)}
-                  >
-                    {this.state.sortFirstName ? "▲" : "▼"}
-                  </span>
-                </th>
-                <th id="lastName">
-                  Last Name
-                  <span
-                    className={userList.sortArrow}
-                    onClick={(e) => this.handleSort(e)}
-                  >
-                    {this.state.sortLastName ? "▲" : "▼"}
-                  </span>
-                </th>
-                <th id="username">
-                  Username
-                  <span
-                    className={userList.sortArrow}
-                    onClick={(e) => this.handleSort(e)}
-                  >
-                    {this.state.sortUsername ? "▲" : "▼"}
-                  </span>
-                </th>
-                <th id="details">
-                  Job
-                  <span
-                    className={userList.sortArrow}
-                    onClick={(e) => this.handleSort(e)}
-                  >
-                    {this.state.sortJob ? "▲" : "▼"}
-                  </span>
-                </th>
-                <th id="birthday">
-                  Birthday
-                  <span
-                    className={userList.sortArrow}
-                    onClick={(e) => this.handleSort(e)}
-                  >
-                    {this.state.sortBirthday ? "▲" : "▼"}
-                  </span>
-                </th>
-                <th>Details</th>
-
-                <th>
-                  <Link
-                    to={{ pathname: `/create` }}
-                    className={userList.detailsLink}
-                  >
-                    <Button variant="outline-light" size="lg">
-                      {" "}
-                      Add new user
-                    </Button>
-                  </Link>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentUsers.map((user) => (
-                <User key={user.id} user={user} deleteUser={this.deleteUser} />
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <Pagination
-          activePage={this.state.activePage}
-          itemsCountPerPage={this.state.usersPerPage}
-          totalItemsCount={this.state.users.length}
-          pageRangeDisplayed={5}
-          onChange={this.handlePageChange.bind(this)}
-        />
-      </>
-    );
+  if (state.searchValue !== "") {
+    currentUsers = state.filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
   }
+  return (
+    <>
+      <h2>Users</h2>
+      {/* <input type="text" onChange={(e) => searchUser(e)} /> */}
+      <div>
+        <label htmlFor="usersPerPage">Users Per Page </label>
+        <select
+          name="usersPerPage"
+          value={state.usersPerPage}
+          onChange={setUserPerPage}
+        >
+          <option>5</option>
+          <option>10</option>
+          <option>15</option>
+        </select>
+      </div>
+      <div>
+        <table className={userList.tableContent}>
+          <thead>
+            <tr>
+              <th id="firstName">
+                First Name
+                <span className={userList.sortArrow} onClick={handleSort}>
+                  {state.sortFirstName ? "▲" : "▼"}
+                </span>
+              </th>
+              <th id="lastName">
+                Last Name
+                <span className={userList.sortArrow} onClick={handleSort}>
+                  {state.sortLastName ? "▲" : "▼"}
+                </span>
+              </th>
+              <th id="username">
+                Username
+                <span className={userList.sortArrow} onClick={handleSort}>
+                  {state.sortUsername ? "▲" : "▼"}
+                </span>
+              </th>
+              <th id="details">
+                Job
+                <span className={userList.sortArrow} onClick={handleSort}>
+                  {state.sortDetails ? "▲" : "▼"}
+                </span>
+              </th>
+              <th id="birthday">
+                Birthday
+                <span className={userList.sortArrow} onClick={handleSort}>
+                  {state.sortBirthday ? "▲" : "▼"}
+                </span>
+              </th>
+              <th>Details</th>
+
+              <th>
+                <Link
+                  to={{ pathname: `/create` }}
+                  className={userList.detailsLink}
+                >
+                  <Button variant="outline-light" size="lg">
+                    {" "}
+                    Add new user
+                  </Button>
+                </Link>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentUsers.map((user) => (
+              <User key={user.id} user={user} deleteUser={deleteUser} />
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <Pagination
+        activePage={state.activePage}
+        itemsCountPerPage={state.usersPerPage}
+        totalItemsCount={state.users.length}
+        pageRangeDisplayed={5}
+        onChange={handlePageChange}
+      />
+    </>
+  );
 }
 
 export default Users;
