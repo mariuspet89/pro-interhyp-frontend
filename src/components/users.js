@@ -39,6 +39,7 @@ function Users() {
   }, []);
 
   useEffect(() => {
+    console.log(searchValue);
     const filteredUser = state.users.filter(
       (user) =>
         user.firstName

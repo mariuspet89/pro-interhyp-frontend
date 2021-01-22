@@ -7,7 +7,7 @@ import { SearchContext } from "./searchContext";
 const Navbar = () => {
   const [searchValue, setSearchValue] = useContext(SearchContext);
   const handleChange = (e) => {
-    setSearchValue(e.target.value.toString());
+    setSearchValue(e.target.value);
     console.log(e.target.value);
   };
   const location = useLocation();
