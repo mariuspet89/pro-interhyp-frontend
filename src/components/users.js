@@ -20,7 +20,6 @@ function Users() {
     sortBirthday: false,
     searchValue: "",
     filteredUsers: [],
-    birthdaySort: [],
   });
   const [searchValue, setSearchValue] = useContext(SearchContext);
 
@@ -39,14 +38,8 @@ function Users() {
   }, []);
 
   useEffect(() => {
-    const filteredUser = state.users.filter(
-      (user) =>
-        user.firstName
-          .toUpperCase()
-          .includes(searchValue.replace(/[^a-zA-Z ]/g, "").toUpperCase()) ||
-        user.lastName
-          .toUpperCase()
-          .includes(searchValue.replace(/[^a-zA-Z ]/g, "").toUpperCase())
+    const filteredUser = state.users.filter((user) =>
+      user.firstName.toUpperCase().includes(searchValue.toUpperCase())
     );
 
     setState({ ...state, filteredUsers: filteredUser });
@@ -89,12 +82,8 @@ function Users() {
         setState({ ...state, sortDetails: !state.sortDetails });
         break;
       case "birthday":
-        // sortField(e.target.parentElement.id);
-        setState({
-          ...state,
-          sortBirthday: !state.sortBirthday,
-          birthdaySort: [],
-        });
+        sortField(e.target.parentElement.id);
+        setState({ ...state, sortBirthday: !state.sortBirthday });
         break;
       default:
         return;
@@ -109,7 +98,7 @@ function Users() {
     if (window.confirm("Are you sure you want to delete?")) {
       try {
         axios
-          .delete("http://20.71.162.122:8080/users" + id + "/" + company)
+          .delete("http://20.71.162.122:8080/users/" + id + "/" + company)
           .then(() => {
             updateUsers();
           });
@@ -123,38 +112,10 @@ function Users() {
   const indexOfLastUser = state.activePage * state.usersPerPage;
   const indexOfFirstUser = indexOfLastUser - state.usersPerPage;
   let currentUsers = state.users.slice(indexOfFirstUser, indexOfLastUser);
-  let startDate = "";
-  let endDate = "";
 
   if (searchValue !== "") {
-    currentUsers = state.filteredUsers;
-  } else if (state.birthdaySort.length > 0) {
-    currentUsers = state.birthdaySort.slice(indexOfFirstUser, indexOfLastUser);
+    currentUsers = state.filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
   }
-
-  const setStartDate = (e) => {
-    startDate = e.target.value;
-    console.log(e.target.value);
-    console.log(state.users[0].birthday);
-    console.log(state.users[0].birthday > startDate);
-  };
-  const setEndDate = (e) => {
-    endDate = e.target.value;
-    console.log(startDate > endDate);
-    if (startDate > endDate) {
-      alert("Start Date Newer Than End Date");
-    } else {
-      let dateFilter = state.users.filter(
-        (user) => user.birthday >= startDate && user.birthday <= endDate
-      );
-      setState({
-        ...state,
-        birthdaySort: dateFilter.sort((a, b) =>
-          a.birthday > b.birthday ? 1 : -1
-        ),
-      });
-    }
-  };
   return (
     <>
       <h2>Users</h2>
@@ -203,14 +164,6 @@ function Users() {
                 <span className={userList.sortArrow} onClick={handleSort}>
                   {state.sortBirthday ? "▲" : "▼"}
                 </span>
-                {state.sortBirthday && (
-                  <div>
-                    <input required="" type="date" onChange={setStartDate} />
-                    <br />
-                    <input type="date" required onChange={setEndDate} />
-                    <br />
-                  </div>
-                )}
               </th>
               <th>Details</th>
 
@@ -238,11 +191,7 @@ function Users() {
         activePage={state.activePage}
         itemsCountPerPage={state.usersPerPage}
         totalItemsCount={
-          searchValue !== ""
-            ? state.filteredUsers.length
-            : state.birthdaySort.length > 0
-            ? state.birthdaySort.length
-            : state.users.length
+          searchValue !== "" ? state.filteredUsers.length : state.users.length
         }
         pageRangeDisplayed={5}
         onChange={handlePageChange}
