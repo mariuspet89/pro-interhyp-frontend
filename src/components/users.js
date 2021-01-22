@@ -238,7 +238,11 @@ function Users() {
         activePage={state.activePage}
         itemsCountPerPage={state.usersPerPage}
         totalItemsCount={
-          searchValue !== "" ? state.filteredUsers.length : state.users.length
+          searchValue !== ""
+            ? state.filteredUsers.length
+            : state.birthdaySort.length > 0
+            ? state.birthdaySort.length
+            : state.users.length
         }
         pageRangeDisplayed={5}
         onChange={handlePageChange}
