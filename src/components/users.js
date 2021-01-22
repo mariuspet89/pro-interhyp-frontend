@@ -98,7 +98,7 @@ function Users() {
     if (window.confirm("Are you sure you want to delete?")) {
       try {
         axios
-          .delete("http://20.52.146.224:8080/users/" + id + "/" + company)
+          .delete("http://20.71.162.122:8080/users/" + id + "/" + company)
           .then(() => {
             updateUsers();
           });

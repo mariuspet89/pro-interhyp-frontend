@@ -1,4 +1,4 @@
-import React from 'react'
+import React,  { useState, } from 'react'
 import Button from 'react-bootstrap/Button'
 import { Card } from 'react-bootstrap'
 import userStyles from '../styles/UserDetails.module.css'
@@ -6,36 +6,43 @@ import axios from "axios";
 import Back from './Back'
 import Modal from './Modal'
 
-class CreateUser extends React.Component {
-    constructor(props){
-        super(props);
+function CreateUser () {
+    // constructor(props){
+    //     super(props);
    
-        this.state = {
-            fields: { company: 'accesa', },
-            errors: {},
-            open: false,
-        }
-     }
+    //     this.state = {
+    //         fields: { company: 'accesa', },
+    //         errors: {},
+    //         open: false,
+    //     }
+    //  }
+     const [state, setState] = useState({
+         fields: {company: "accesa", },
+         errors: {},
+         open: false,
+     })
    
-    createUser= () => {
-        if(this.handleValidation()){
-            console.log(this.state.fields);
-            axios.post("http://20.52.146.224:8080/users", this.state.fields)
+    const createUser = () => {
+        if(handleValidation()){
+            axios.post("http://20.71.162.122:8080/users", state.fields)
             .then((response)=>{
                 console.log("response: ",response)
             })
             .catch((error)=>{
                 console.log(error)
             });
-            this.setState({open: true})
+            setState(
+                prevState => {
+                    return { ...prevState, open: true }
+                  })
         }
         else {
-            
+           
         }
     }
 
-    handleValidation(){
-        let fields = this.state.fields;
+    const handleValidation=() =>{
+        let fields = state.fields;
         let errors = {};
         let formIsValid = true;
 
@@ -61,20 +68,28 @@ class CreateUser extends React.Component {
             errors["details"] = "empty";
          }        
 
-       this.setState({errors: errors});
+       setState(
+        prevState => {
+            return { ...prevState, errors: errors }
+          });
        return formIsValid;
    }
    
-   handleChange(field, e){         
-    let fields = this.state.fields;
-    fields[field] = e.target.value;        
-    this.setState({fields});
+   const handleChange= ( e) => {         
+    let fields = state.fields;
+    fields[e.target.name] = e.target.value;        
+    setState(prevState => {
+        return { ...prevState, fields: fields }
+      });
 }
     
-    render(){ 
-        return(
+      return(
         <div>
-        <Modal isOpen={this.state.open} onClose= {(e)=> this.setState({open: false})}> User was sucesfully created</Modal>
+        <Modal isOpen={state.open} 
+            onClose= {(e)=> setState(
+                prevState => {
+                    return { ...prevState, open: false }
+            })}> User was sucesfully created</Modal>
         <Card  className={userStyles.userContainer}>
             <Card.Header>
                 Create new user
@@ -84,32 +99,32 @@ class CreateUser extends React.Component {
                 <h5> ✔️ All fields are required</h5>
                 <label >
                     First name:
-                    <input style= { this.state.errors["firstName"]===undefined ? { }: { backgroundColor: 'rgba(255, 0, 0, 0.082)'}}
-                     type="text" name="firstName" onChange={this.handleChange.bind(this, "firstName")}/>
+                    <input style= { state.errors["firstName"]===undefined ? { }: { backgroundColor: 'rgba(255, 0, 0, 0.082)'}}
+                     type="text" name="firstName" onChange={handleChange}/>
                 </label>
                 <br/>
                 <label>
                     Last name:
-                    <input style= { this.state.errors["lastName"]===undefined ? { }: { backgroundColor: 'rgba(255, 0, 0, 0.082)'}}
-                    type="text" name="lastName" onChange={this.handleChange.bind(this, "lastName")}/>
+                    <input style= { state.errors["lastName"]===undefined ? { }: { backgroundColor: 'rgba(255, 0, 0, 0.082)'}}
+                    type="text" name="lastName" onChange={handleChange}/>
                 </label>
                 <br/>
                 <label>
                     Username:
-                    <input style= { this.state.errors["username"]===undefined ? { }: { backgroundColor: 'rgba(255, 0, 0, 0.082)'}}
-                    type="text" name="username" onChange={this.handleChange.bind(this, "username")}/>
+                    <input style= { state.errors["username"]===undefined ? { }: { backgroundColor: 'rgba(255, 0, 0, 0.082)'}}
+                    type="text" name="username" onChange={handleChange}/>
                 </label>
                 <br/>
                 <label>
                     Date of Birth:
-                    <input style= { this.state.errors["birthday"]===undefined ? { }: { backgroundColor: 'rgba(255, 0, 0, 0.082)'}} 
-                    type="date" name="birthday"  onChange={this.handleChange.bind(this, "birthday") }/>
+                    <input style= { state.errors["birthday"]===undefined ? { }: { backgroundColor: 'rgba(255, 0, 0, 0.082)'}} 
+                    type="date" name="birthday"  onChange={handleChange }/>
                 </label>
                 <br/>
                 <label>
                     Job title:
-                    <input style= { this.state.errors["details"]===undefined ?{ }: { backgroundColor: 'rgba(255, 0, 0, 0.082)'}}
-                    type="text" name="details" onChange={this.handleChange.bind(this, "details")}/>
+                    <input style= { state.errors["details"]===undefined ?{ }: { backgroundColor: 'rgba(255, 0, 0, 0.082)'}}
+                    type="text" name="details" onChange={handleChange}/>
                 </label>
                 </form>
                 <div className={userStyles.down}>
@@ -117,7 +132,7 @@ class CreateUser extends React.Component {
 					<Button
 						variant='success'
 						className={userStyles.margin}
-						onClick={() => this.createUser()}>
+						onClick={createUser}>
 						Create
 					</Button>
 				</div>
@@ -125,6 +140,6 @@ class CreateUser extends React.Component {
         </Card>
         </div>
 
-        )}
+        )
 }
 export default CreateUser;
