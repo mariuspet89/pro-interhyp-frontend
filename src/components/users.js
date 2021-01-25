@@ -90,7 +90,6 @@ function Users() {
         setState({ ...state, sortDetails: !state.sortDetails });
         break;
       case "birthday":
-        // sortField(e.target.parentElement.id);
         setState({
           ...state,
           sortBirthday: !state.sortBirthday,
@@ -106,11 +105,48 @@ function Users() {
     setState({ ...state, activePage: pageNumber });
   };
 
+  const setStartDate = (e) => {
+    const startDate = e.target.value;
+    console.log(typeof e.target.value);
+    setState({ ...state, startDate: startDate });
+  };
+
+  const setEndDate = (e) => {
+    const endDate = e.target.value;
+    setState({ ...state, endDate: endDate });
+  };
+
+  const sortByDate = () => {
+    if (state.startDate > state.endDate) {
+      alert("Start Date Newer Than End Date");
+    } else if (state.startDate == null || state.endDate == null) {
+      alert("Select range");
+    } else {
+      let dateFilter = state.users.filter(
+        (user) =>
+          user.birthday >= state.startDate && user.birthday <= state.endDate
+      );
+      const birthdaySort = dateFilter.sort((a, b) =>
+        a.birthday > b.birthday ? 1 : -1
+      );
+      if (birthdaySort.length == 0) {
+        alert("No user found between this dates");
+      } else {
+        setState({
+          ...state,
+          birthdaySort: dateFilter.sort((a, b) =>
+            a.birthday > b.birthday ? 1 : -1
+          ),
+        });
+      }
+    }
+  };
+
   const deleteUser = (id, company) => {
     if (window.confirm("Are you sure you want to delete?")) {
       try {
         axios
-          .delete("http://20.71.162.122:8080/users" + id + "/" + company)
+          .delete("http://20.71.162.122:8080/users/" + id + "/" + company)
           .then(() => {
             updateUsers();
           });
@@ -121,41 +157,23 @@ function Users() {
       console.log("Delete, cancelled");
     }
   };
+
   const indexOfLastUser = state.activePage * state.usersPerPage;
   const indexOfFirstUser = indexOfLastUser - state.usersPerPage;
   let currentUsers = state.users.slice(indexOfFirstUser, indexOfLastUser);
-  let startDate = "";
-  let endDate = "";
 
-  if (searchValue !== "") {
-    currentUsers = state.filteredUsers;
-  } else if (state.birthdaySort.length > 0) {
-    currentUsers = state.birthdaySort.slice(indexOfFirstUser, indexOfLastUser);
-  }
+  searchValue !== ""
+    ? (currentUsers = state.filteredUsers.slice(
+        indexOfFirstUser,
+        indexOfLastUser
+      ))
+    : state.birthdaySort.length > 0
+    ? (currentUsers = state.birthdaySort.slice(
+        indexOfFirstUser,
+        indexOfLastUser
+      ))
+    : (currentUsers = state.users.slice(indexOfFirstUser, indexOfLastUser));
 
-  const setStartDate = (e) => {
-    startDate = e.target.value;
-    console.log(e.target.value);
-    console.log(state.users[0].birthday);
-    console.log(state.users[0].birthday > startDate);
-  };
-  const setEndDate = (e) => {
-    endDate = e.target.value;
-    console.log(startDate > endDate);
-    if (startDate > endDate) {
-      alert("Start Date Newer Than End Date");
-    } else {
-      let dateFilter = state.users.filter(
-        (user) => user.birthday >= startDate && user.birthday <= endDate
-      );
-      setState({
-        ...state,
-        birthdaySort: dateFilter.sort((a, b) =>
-          a.birthday > b.birthday ? 1 : -1
-        ),
-      });
-    }
-  };
   return (
     <>
       <h2>Users</h2>
@@ -206,13 +224,25 @@ function Users() {
                 </span>
                 {state.sortBirthday && (
                   <div>
-                    <input required="" type="date" onChange={setStartDate} />
+                    <input
+                      className={userList.datePicker}
+                      value={state.startDate}
+                      type="date"
+                      onChange={setStartDate}
+                    />
                     <br />
-                    <input type="date" required onChange={setEndDate} />
+                    <input
+                      className={userList.datePicker}
+                      type="date"
+                      value={state.endDate}
+                      onChange={setEndDate}
+                    />
                     <br />
+                    <Button onClick={sortByDate}>Search</Button>
                   </div>
                 )}
               </th>
+
               <th>Details</th>
 
               <th>
