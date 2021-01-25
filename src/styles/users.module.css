@@ -67,3 +67,8 @@
 .sortArrow {
   cursor: pointer;
 }
+.datePicker {
+  margin-bottom: 5px;
+  border-radius: 5px;
+  border: 0;
+}

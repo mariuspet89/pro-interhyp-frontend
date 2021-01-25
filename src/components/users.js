@@ -20,6 +20,7 @@ function Users() {
     sortBirthday: false,
     searchValue: "",
     filteredUsers: [],
+    birthdaySort: [],
   });
   const [searchValue, setSearchValue] = useContext(SearchContext);
 
@@ -38,8 +39,15 @@ function Users() {
   }, []);
 
   useEffect(() => {
-    const filteredUser = state.users.filter((user) =>
-      user.firstName.toUpperCase().includes(searchValue.toUpperCase())
+    console.log(searchValue);
+    const filteredUser = state.users.filter(
+      (user) =>
+        user.firstName
+          .toUpperCase()
+          .includes(searchValue.replace(/[^a-zA-Z ]/g, "").toUpperCase()) ||
+        user.lastName
+          .toUpperCase()
+          .includes(searchValue.replace(/[^a-zA-Z ]/g, "").toUpperCase())
     );
 
     setState({ ...state, filteredUsers: filteredUser });
@@ -82,8 +90,11 @@ function Users() {
         setState({ ...state, sortDetails: !state.sortDetails });
         break;
       case "birthday":
-        sortField(e.target.parentElement.id);
-        setState({ ...state, sortBirthday: !state.sortBirthday });
+        setState({
+          ...state,
+          sortBirthday: !state.sortBirthday,
+          birthdaySort: [],
+        });
         break;
       default:
         return;
@@ -92,6 +103,43 @@ function Users() {
 
   const handlePageChange = (pageNumber) => {
     setState({ ...state, activePage: pageNumber });
+  };
+
+  const setStartDate = (e) => {
+    const startDate = e.target.value;
+    console.log(typeof e.target.value);
+    setState({ ...state, startDate: startDate });
+  };
+
+  const setEndDate = (e) => {
+    const endDate = e.target.value;
+    setState({ ...state, endDate: endDate });
+  };
+
+  const sortByDate = () => {
+    if (state.startDate > state.endDate) {
+      alert("Start Date Newer Than End Date");
+    } else if (state.startDate == null || state.endDate == null) {
+      alert("Select range");
+    } else {
+      let dateFilter = state.users.filter(
+        (user) =>
+          user.birthday >= state.startDate && user.birthday <= state.endDate
+      );
+      const birthdaySort = dateFilter.sort((a, b) =>
+        a.birthday > b.birthday ? 1 : -1
+      );
+      if (birthdaySort.length == 0) {
+        alert("No user found between this dates");
+      } else {
+        setState({
+          ...state,
+          birthdaySort: dateFilter.sort((a, b) =>
+            a.birthday > b.birthday ? 1 : -1
+          ),
+        });
+      }
+    }
   };
 
   const deleteUser = (id, company) => {
@@ -109,13 +157,23 @@ function Users() {
       console.log("Delete, cancelled");
     }
   };
+
   const indexOfLastUser = state.activePage * state.usersPerPage;
   const indexOfFirstUser = indexOfLastUser - state.usersPerPage;
   let currentUsers = state.users.slice(indexOfFirstUser, indexOfLastUser);
 
-  if (searchValue !== "") {
-    currentUsers = state.filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
-  }
+  searchValue !== ""
+    ? (currentUsers = state.filteredUsers.slice(
+        indexOfFirstUser,
+        indexOfLastUser
+      ))
+    : state.birthdaySort.length > 0
+    ? (currentUsers = state.birthdaySort.slice(
+        indexOfFirstUser,
+        indexOfLastUser
+      ))
+    : (currentUsers = state.users.slice(indexOfFirstUser, indexOfLastUser));
+
   return (
     <>
       <h2>Users</h2>
@@ -164,7 +222,27 @@ function Users() {
                 <span className={userList.sortArrow} onClick={handleSort}>
                   {state.sortBirthday ? "▲" : "▼"}
                 </span>
+                {state.sortBirthday && (
+                  <div>
+                    <input
+                      className={userList.datePicker}
+                      value={state.startDate}
+                      type="date"
+                      onChange={setStartDate}
+                    />
+                    <br />
+                    <input
+                      className={userList.datePicker}
+                      type="date"
+                      value={state.endDate}
+                      onChange={setEndDate}
+                    />
+                    <br />
+                    <Button onClick={sortByDate}>Search</Button>
+                  </div>
+                )}
               </th>
+
               <th>Details</th>
 
               <th>
