@@ -1,0 +1,42 @@
+.departmentConainer{
+    background: #99cc00;
+    margin: 0.8rem 0.8rem 0 0.8rem;
+    padding: 0.5rem 2rem 0 2rem;
+    color: white;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    border-radius:1% 1% 0 0;
+}
+.members{
+  border-collapse: collapse;
+  font-size: 0.9em;
+  min-width: 80%;
+  overflow: hidden;
+}
+.memners tr{
+    padding: 0.2rem;
+}
+.members thead tr {
+    background-color: #99cc00a2;
+    color: #ffffff;
+    font-weight: bold;
+  }
+.members th,
+.members td {
+  padding: 12px 15px;
+}
+
+.members tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.members tbody tr:hover {
+  background-color: #add8e6;
+}
+.detailsLink{
+ text-decoration: none;
+}
+.smallerFont{
+    font-size: 1.3rem;
+}

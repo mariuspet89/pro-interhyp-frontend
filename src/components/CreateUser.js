@@ -7,15 +7,6 @@ import Back from './Back'
 import Modal from './Modal'
 
 function CreateUser () {
-    // constructor(props){
-    //     super(props);
-   
-    //     this.state = {
-    //         fields: { company: 'accesa', },
-    //         errors: {},
-    //         open: false,
-    //     }
-    //  }
      const [state, setState] = useState({
          fields: {company: "accesa", },
          errors: {},
