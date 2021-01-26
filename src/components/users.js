@@ -242,9 +242,7 @@ function Users() {
                   </div>
                 )}
               </th>
-
               <th>Details</th>
-
               <th>
                 <Link
                   to={{ pathname: `/create` }}
