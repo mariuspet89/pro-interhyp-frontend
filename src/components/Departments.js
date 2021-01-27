@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Department from "./Department"
 import axios from "axios";
 import "../styles/departments.css"
+import { Link } from "react-router-dom";
 
 function Departments () {
   const [state, setState]=useState({
@@ -9,99 +10,43 @@ function Departments () {
     expanded: [],
   });
   const getDepartments = () => {
-    //axios.get('').then((response)=> setDepartments({departments: response.data}));
-    setState({...state, departments: [
-      { name: 'Name of d1',
-        description: 'describe d1',
-        size: 2,
-        users: [
-          {
-            "company": "accesa",
-            "id": "003f3886-3b22-4b22-a41b-672037323698",
-            "details": "Marketing Assistant",
-            "firstName": "Kare",
-            "lastName": "Garcia",
-            "birthday": "2005-05-21",
-            "username": "kgarcia2x"
-            },
-            {
-            "company": "accesa",
-            "id": "0045c8d4-d43b-4f49-9899-1d6e6c07d44c",
-            "details": "Chief Design Engineer",
-            "firstName": "Ines",
-            "lastName": "Huot",
-            "birthday": "2001-11-18",
-            "username": "ihuota0"
-            },
-        ]},
-        { name: 'Name of d2',
-        description: 'describe d2',
-        size: 2,
-        users: [
-          {
-            "company": "accesa",
-            "id": "006232cc-0d00-44aa-a9df-b50e6f39db4f",
-            "details": "Assistant Professor",
-            "firstName": "Perri",
-            "lastName": "Brockbank",
-            "birthday": "2003-05-05",
-            "username": "pbrockbank9k"
-            },
-            {
-            "company": "accesa",
-            "id": "00653076-4256-48d5-8c32-dd53bdcc67a2",
-            "details": "Media Manager IV",
-            "firstName": "Annelise",
-            "lastName": "Bunkle",
-            "birthday": "2011-02-20",
-            "username": "abunklean"
-            },
-        ]},
-        { name: 'Name of d3',
-        description: 'describe d3',
-        size: 2,
-        users: [
-          {
-            "company": "accesa",
-            "id": "006232cc-0d00-44aa-a9df-b50e6f39db4f",
-            "details": "Assistant Professor",
-            "firstName": "Perri",
-            "lastName": "Brockbank",
-            "birthday": "2003-05-05",
-            "username": "pbrockbank9k"
-            },
-            {
-            "company": "accesa",
-            "id": "00653076-4256-48d5-8c32-dd53bdcc67a2",
-            "details": "Media Manager IV",
-            "firstName": "Annelise",
-            "lastName": "Bunkle",
-            "birthday": "2011-02-20",
-            "username": "abunklean"
-            },
-        ]},
-    
-      ], expanded: Array(4).fill(false)
-    });
-    //setState({...state, expanded: Array(4).fill(false)})
+  axios.get('http://20.71.162.122:8080/department').then((response)=> {setState({...state, departments: response.data, expanded: Array(response.data.length).fill(false)}); 
+              console.log('response', response, response.data);});
   }
   useEffect(() => {
     getDepartments();
   }, []);
 
+  const deleteDepartment = (name) => {
+    axios.delete("http://20.71.162.122:8080/department/delete-department/"+ name).then(()=> getDepartments());
+  }
   const expand= (index) => {
     console.log(typeof(state.departments), state.expanded, state.departments);
     let expand= state.expanded;
     expand[index]=!expand[index];
     setState({...state, expanded: expand});
   }
+  const getUsers= (name) =>{
+    axios.get('http://20.71.162.122:8080/department/'+name)
+      .then((response)=> {
+        let departments= state.departments;
+        departments.map((department) => {
+              if(department.name===name) 
+                department.userDtos=response.data.userDtos});
+        setState({...state, departments: departments});
+      });
+  }
   return(
      <> 
+      <Link to={{ pathname: `/createDep` }} className='add-container' >
+        <button className="add-dept"> Add department </button>
+      </Link>
       {state.departments.map((department, index)=>(
-        <Department key={index} department={department} expand={expand} index={index} expanded={state.expanded[index]} getDepartments={getDepartments}/>
+        <Department key={index} department={department} deleteDepartmentP={deleteDepartment}
+          expand={expand} index={index} expanded={state.expanded[index]} getDepartments={getDepartments} getUsers={getUsers}/>
       ))}
+      <div className="space"></div>
      </>
   );
 }
-
 export default Departments;

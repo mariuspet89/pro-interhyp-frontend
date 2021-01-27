@@ -5,18 +5,30 @@ import User from './User';
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import Axios from 'axios';
+import { useState } from 'react';
+import BigModal from './BigModal';
+import Users from './users';
 
-const Department = ({department, expand, index, expanded, getDepartments}) => {
-    const handleExpand = (department)=> {
+const Department = ({department, expand, index, expanded, getUsers, deleteDepartmentP}) => {
+    const [state, setState] = useState({open: false,})
+    const handleExpand = ()=> {
         expand(index);
-        console.log("was clicked", department.expanded);
     }
-    const deleteFromDepartment=(id, company) =>{
+    
+    const deleteUserFromDepartment=(id) =>{
         if(window.confirm("Are you sure you want to remove user from department?"))
-        Axios.delete('url'+id).then(()=> getDepartments());
+          Axios.delete('http://20.71.162.122:8080/department',  {data: { department: department.name, userId: id}})
+            .then(()=> getUsers(department.name));
+        console.log({ "department": department.name, " userId": id});
     }
+    const deleteDepartment = (name) => {
+        if(window.confirm('Are you sure you want to delete this department?'))
+        deleteDepartmentP(name);
+    }
+  
     let users=null;
     if (expanded) users=(
+        <>
         <table className="members">
           <thead>
             <tr>
@@ -37,33 +49,44 @@ const Department = ({department, expand, index, expanded, getDepartments}) => {
               </th>
               <th>Details</th>
               <th>
-                <Link
+                {/* <Link
                   to={{ pathname: `/create` }}
                   className="detailsLink"
-                >
-                  <Button variant="outline-light" size="lg">
+                > */}
+                  <Button variant="outline-light" size="lg" onClick={()=>setState({open: true})}>
                     {" "}
                     Add user
                   </Button>
-                </Link>
+                {/* </Link> */}
               </th>
             </tr>
           </thead>
           <tbody>
-            {department.users.map((user) => (
-                <User key={user.id} user={user} deleteUser={deleteFromDepartment}></User>
+            {department.userDtos.map((user) => (
+                <User key={user.id} user={user} deleteUser={()=>deleteUserFromDepartment(user.id)}></User>
             ))}
           </tbody>
-        </table>)
+        </table>
+        <Button variant='outline-danger' onClick={()=>deleteDepartment(department.name)} className='margin'> Delete department </Button>
+        </>)
+       
     return (
         <>
-        <div className='departmentConainer'>
-            <div>
+         <BigModal isOpen={state.open} 
+            onClose= {(e)=> {
+            setState(
+                prevState => {return { ...prevState, open: false }}
+            );
+            getUsers(department.name);
+            }}>
+             <Users department={department.name}/> </BigModal>
+        <div className='department-container'>
+            <div className='left-block'>
                 <h3>{department.name}</h3>
-                <p className='smallerFont'>{department.description}</p>
+                <p className='smaller-font'>{department.description}</p>
             </div>
             <div>
-                <p className='smallerFont' onClick={handleExpand}>Number of members: {department.size} {expanded ? "▲" : "▼"}</p>
+                <p className='smaller-font' onClick={handleExpand}>Number of members: {department.userDtos.length} {expanded ? "▲" : "▼"}</p>
             </div>                 
         </div>
         {users}

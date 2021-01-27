@@ -1,12 +1,18 @@
-.departmentConainer{
+.department-container{
     background: #99cc00;
     margin: 0.8rem 0.8rem 0 0.8rem;
-    padding: 0.5rem 2rem 0 2rem;
+    padding: 0.5rem 2rem 0.5rem 2rem;
     color: white;
     width: 80%;
     display: flex;
     justify-content: space-between;
     border-radius:1% 1% 0 0;
+}
+.space{
+  margin: 3rem;
+}
+.left-block{
+    width: 80%;
 }
 .members{
   border-collapse: collapse;
@@ -14,7 +20,7 @@
   min-width: 80%;
   overflow: hidden;
 }
-.memners tr{
+.members tr{
     padding: 0.2rem;
 }
 .members thead tr {
@@ -37,6 +43,34 @@
 .detailsLink{
  text-decoration: none;
 }
-.smallerFont{
-    font-size: 1.3rem;
+.smaller-font{
+    font-size: 1rem;
+}
+.add-dept{
+    border-radius: 5%;
+    border: 1px solid #135180;
+    color: #135180;
+    background: white;
+    width: 12rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.add-dept:hover{
+    color: white;
+    background: #135180;  
+}
+.add-container{
+    margin-left: auto;
+    margin-right: 10%;
+}
+.margin{
+    margin: 1rem;
+}
+h3 , p{
+    text-align: left;
+}
+.round{
+  background: white;
+  border-radius: 40%;
 }
