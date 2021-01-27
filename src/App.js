@@ -6,6 +6,7 @@ import UserDetails from "./components/User/UserDetails";
 import CreateUser from "./components/User/CreateUser";
 import Navbar from "./components/Navbar";
 import Departments from "./components/Departments";
+import CreateDepartment from "./components/CreateDepartment"
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/details/:id" component={UserDetails} />
             <Route path="/create" component={CreateUser} />
             <Route path="/departments" component={Departments} />
+            <Route path="/createDep" component={CreateDepartment}/>
           </Switch>
         </header>
       </div>

@@ -7,7 +7,7 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { SearchContext } from "../searchContext";
 
-function Users() {
+function Users(department) {
   const [state, setState] = useState({
     users: [],
     currentUsers: 1,
@@ -33,6 +33,11 @@ function Users() {
       setState({ ...state, users: response.data });
     });
   };
+
+  let onDepartment = false;
+  console.log("ondepartment: ", onDepartment, window.location.href);
+  if (window.location.href.includes("department"))
+    {onDepartment=true; console.log("ondepartment: ", onDepartment)}
 
   useEffect(() => {
     updateUsers();
@@ -156,7 +161,6 @@ function Users() {
       console.log("Delete, cancelled");
     }
   };
-
   const indexOfLastUser = state.activePage * state.usersPerPage;
   const indexOfFirstUser = indexOfLastUser - state.usersPerPage;
   let currentUsers = state.users.slice(indexOfFirstUser, indexOfLastUser);
@@ -245,7 +249,7 @@ function Users() {
               <th>Details</th>
               <th>
                 <Link to={{ pathname: `/create` }} className="details-link">
-                  <Button variant="outline-light" size="lg">
+                  <Button variant="outline-light" size="lg" style={{display: onDepartment ? 'none' : 'inline' }}>
                     {" "}
                     Add new user
                   </Button>
@@ -255,7 +259,7 @@ function Users() {
           </thead>
           <tbody>
             {currentUsers.map((user) => (
-              <User key={user.id} user={user} deleteUser={deleteUser} />
+              <User key={user.id} user={user} deleteUser={deleteUser} onDepartment={onDepartment} department={department}/>
             ))}
           </tbody>
         </table>

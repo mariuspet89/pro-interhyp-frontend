@@ -1,0 +1,20 @@
+.dialogb{
+    /* width: 500px;*/
+    margin: 0 auto; 
+    /* position: fixed; */
+    /* left: 50%;
+    top: 50%; */
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    background-color: #eee;
+    padding: 10px 20px 40px;
+    border-radius: 8px;
+    position: absolute;
+    top: 80%;
+    /* left: 0; */
+    width: 80%;
+    /* height: 80%; */
+}
+.lower{
+    margin-top: 40px;
+}
