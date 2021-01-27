@@ -21,7 +21,6 @@ function Departments () {
     axios.delete("http://20.71.162.122:8080/department/delete-department/"+ name).then(()=> getDepartments());
   }
   const expand= (index) => {
-    console.log(typeof(state.departments), state.expanded, state.departments);
     let expand= state.expanded;
     expand[index]=!expand[index];
     setState({...state, expanded: expand});

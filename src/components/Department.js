@@ -19,7 +19,6 @@ const Department = ({department, expand, index, expanded, getUsers, deleteDepart
         if(window.confirm("Are you sure you want to remove user from department?"))
           Axios.delete('http://20.71.162.122:8080/department',  {data: { department: department.name, userId: id}})
             .then(()=> getUsers(department.name));
-        console.log({ "department": department.name, " userId": id});
     }
     const deleteDepartment = (name) => {
         if(window.confirm('Are you sure you want to delete this department?'))

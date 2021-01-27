@@ -57,8 +57,7 @@ function CreateDepartment () {
     let fields = state.fields;
     if(e.target.name==='userIds') fields.userIds[idx]=e.target.value; 
     else fields[e.target.name] = e.target.value; 
-    if(e.target.name==='name') fields.name=fields.name.toUpperCase();   
-    console.log("state: ", state.fields); 
+    if(e.target.name==='name') fields.name=fields.name.toUpperCase();
     setState(prevState => {
         return { ...prevState, fields: fields }
       });
