@@ -1,42 +1,43 @@
-.tableContent {
+.table-content {
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 0.9em;
   min-width: 400px;
+
   border-radius: 5px 5px 0 0;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
-.tableContent thead tr {
+.table-content thead tr {
   background-color: #99cc00;
   color: #ffffff;
   font-weight: bold;
 }
 
-.tableContent th,
-.tableContent td {
+.table-content th,
+.table-content td {
   padding: 12px 15px;
 }
 
-.tableContent tbody tr {
+.table-content tbody tr {
   border-bottom: 1px solid #dddddd;
 }
 
-.tableContent tbody tr:hover {
+.table-content tbody tr:hover {
   background-color: #add8e6;
 }
 
-.tableContent tbody tr:last-of-type {
+.table-content tbody tr:last-of-type {
   border-bottom: 2px solid #009879;
 }
 
-.detailsLink {
+.details-link {
   text-decoration: none;
   color: black;
 }
 
-.detailsLink:hover {
+.details-link:hover {
   color: #009879;
 }
 .deleteButton {
@@ -56,14 +57,19 @@
   background-color: white;
   vertical-align: middle;
 }
-.deleteButton:hover {
+.delete-button:hover {
   background: linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
   color: white;
 }
-.deleteButton:active {
+.delete-button:active {
   position: relative;
   top: 1px;
 }
-.sortArrow {
+.sort-arrow {
   cursor: pointer;
+}
+.date-picker {
+  margin-bottom: 5px;
+  border-radius: 5px;
+  border: 0;
 }

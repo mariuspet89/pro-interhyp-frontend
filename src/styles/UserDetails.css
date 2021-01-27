@@ -1,9 +1,9 @@
-.userContainer {
+.user-container {
   width: 90vh;
   background-color: rgba(173, 216, 230, 0.2);
 }
 
-.userData {
+.user-data {
   text-align: left;
   padding-left: 3rem;
 }
@@ -17,11 +17,18 @@
   text-align: left;
   margin-left: 25px;
 }
-.empty{
+.empty {
   background-color: red;
   border: 2px solid rgba(255, 0, 0, 0.082);
 }
 
 .down {
   margin-top: 3rem;
+}
+.address {
+  border: 0;
+}
+#number,
+#postal {
+  width: 100px;
 }

@@ -13,7 +13,7 @@ function App() {
     <Router>
       <div className="App">
         <Navbar />
-        <header className="App-header">
+        <header className="pih-header">
           <Switch>
             <Route path="/" exact component={Users} />
             <Route path="/details/:id" component={UserDetails} />

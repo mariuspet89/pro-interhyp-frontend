@@ -1,6 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
-import userList from "../../styles/users.module.css";
+import React from "react";
+import { Link } from "react-router-dom";
+import "../../styles/Users.css";
 import Button from "react-bootstrap/Button";
 import Axios from 'axios';
 
@@ -26,7 +26,7 @@ const User = ({user, deleteUser, department, onDepartment}) => {
 			<td>
 				<Link
 					to={{ pathname: `/details/${user.id}`, state: { user: user } }}
-					className={userList.detailsLink}>
+					className="details-link">
 					See Details
 				</Link>
 			</td>

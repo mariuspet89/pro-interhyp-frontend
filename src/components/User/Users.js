@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Pagination from "react-js-pagination";
 import User from "./User";
-import userList from "../../styles/users.module.css";
+import "../../styles/Users.css";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { SearchContext } from "../searchContext";
@@ -20,6 +20,7 @@ function Users(department) {
     sortBirthday: false,
     searchValue: "",
     filteredUsers: [],
+    birthdaySort: [],
   });
   const [searchValue, setSearchValue] = useContext(SearchContext);
 
@@ -43,8 +44,14 @@ function Users(department) {
   }, []);
 
   useEffect(() => {
-    const filteredUser = state.users.filter((user) =>
-      user.firstName.toUpperCase().includes(searchValue.toUpperCase())
+    const filteredUser = state.users.filter(
+      (user) =>
+        user.firstName
+          .toUpperCase()
+          .includes(searchValue.replace(/[^a-zA-Z ]/g, "").toUpperCase()) ||
+        user.lastName
+          .toUpperCase()
+          .includes(searchValue.replace(/[^a-zA-Z ]/g, "").toUpperCase())
     );
 
     setState({ ...state, filteredUsers: filteredUser });
@@ -87,8 +94,11 @@ function Users(department) {
         setState({ ...state, sortDetails: !state.sortDetails });
         break;
       case "birthday":
-        sortField(e.target.parentElement.id);
-        setState({ ...state, sortBirthday: !state.sortBirthday });
+        setState({
+          ...state,
+          sortBirthday: !state.sortBirthday,
+          birthdaySort: [],
+        });
         break;
       default:
         return;
@@ -97,6 +107,43 @@ function Users(department) {
 
   const handlePageChange = (pageNumber) => {
     setState({ ...state, activePage: pageNumber });
+  };
+
+  const setStartDate = (e) => {
+    const startDate = e.target.value;
+    console.log(typeof e.target.value);
+    setState({ ...state, startDate: startDate });
+  };
+
+  const setEndDate = (e) => {
+    const endDate = e.target.value;
+    setState({ ...state, endDate: endDate });
+  };
+
+  const sortByDate = () => {
+    if (state.startDate > state.endDate) {
+      alert("Start Date Newer Than End Date");
+    } else if (state.startDate == null || state.endDate == null) {
+      alert("Select range");
+    } else {
+      let dateFilter = state.users.filter(
+        (user) =>
+          user.birthday >= state.startDate && user.birthday <= state.endDate
+      );
+      const birthdaySort = dateFilter.sort((a, b) =>
+        a.birthday > b.birthday ? 1 : -1
+      );
+      if (birthdaySort.length == 0) {
+        alert("No user found between this dates");
+      } else {
+        setState({
+          ...state,
+          birthdaySort: dateFilter.sort((a, b) =>
+            a.birthday > b.birthday ? 1 : -1
+          ),
+        });
+      }
+    }
   };
 
   const deleteUser = (id, company) => {
@@ -118,9 +165,18 @@ function Users(department) {
   const indexOfFirstUser = indexOfLastUser - state.usersPerPage;
   let currentUsers = state.users.slice(indexOfFirstUser, indexOfLastUser);
 
-  if (searchValue !== "") {
-    currentUsers = state.filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
-  }
+  searchValue !== ""
+    ? (currentUsers = state.filteredUsers.slice(
+        indexOfFirstUser,
+        indexOfLastUser
+      ))
+    : state.birthdaySort.length > 0
+    ? (currentUsers = state.birthdaySort.slice(
+        indexOfFirstUser,
+        indexOfLastUser
+      ))
+    : (currentUsers = state.users.slice(indexOfFirstUser, indexOfLastUser));
+
   return (
     <>
       <h2>Users</h2>
@@ -133,50 +189,66 @@ function Users(department) {
         >
           <option>5</option>
           <option>10</option>
-          <option>15</option>
+          <option>50</option>
+          <option>100</option>
         </select>
       </div>
       <div>
-        <table className={userList.tableContent}>
+        <table className="table-content">
           <thead>
             <tr>
               <th id="firstName">
                 First Name
-                <span className={userList.sortArrow} onClick={handleSort}>
+                <span className="sort-arrow" onClick={handleSort}>
                   {state.sortFirstName ? "▲" : "▼"}
                 </span>
               </th>
               <th id="lastName">
                 Last Name
-                <span className={userList.sortArrow} onClick={handleSort}>
+                <span className="sort-arrow" onClick={handleSort}>
                   {state.sortLastName ? "▲" : "▼"}
                 </span>
               </th>
               <th id="username">
                 Username
-                <span className={userList.sortArrow} onClick={handleSort}>
+                <span className="sort-arrow" onClick={handleSort}>
                   {state.sortUsername ? "▲" : "▼"}
                 </span>
               </th>
               <th id="details">
                 Job
-                <span className={userList.sortArrow} onClick={handleSort}>
+                <span className="sort-arrow" onClick={handleSort}>
                   {state.sortDetails ? "▲" : "▼"}
                 </span>
               </th>
               <th id="birthday">
                 Birthday
-                <span className={userList.sortArrow} onClick={handleSort}>
+                <span className="sort-arrow" onClick={handleSort}>
                   {state.sortBirthday ? "▲" : "▼"}
                 </span>
+                {state.sortBirthday && (
+                  <div>
+                    <input
+                      className="date-picker"
+                      value={state.startDate}
+                      type="date"
+                      onChange={setStartDate}
+                    />
+                    <br />
+                    <input
+                      className="date-picker"
+                      type="date"
+                      value={state.endDate}
+                      onChange={setEndDate}
+                    />
+                    <br />
+                    <Button onClick={sortByDate}>Search</Button>
+                  </div>
+                )}
               </th>
               <th>Details</th>
-
               <th>
-                <Link
-                  to={{ pathname: `/create` }}
-                  className={userList.detailsLink}
-                >
+                <Link to={{ pathname: `/create` }} className="details-link">
                   <Button variant="outline-light" size="lg" style={{display: onDepartment ? 'none' : 'inline' }}>
                     {" "}
                     Add new user
@@ -196,7 +268,11 @@ function Users(department) {
         activePage={state.activePage}
         itemsCountPerPage={state.usersPerPage}
         totalItemsCount={
-          searchValue !== "" ? state.filteredUsers.length : state.users.length
+          searchValue !== ""
+            ? state.filteredUsers.length
+            : state.birthdaySort.length > 0
+            ? state.birthdaySort.length
+            : state.users.length
         }
         pageRangeDisplayed={5}
         onChange={handlePageChange}
