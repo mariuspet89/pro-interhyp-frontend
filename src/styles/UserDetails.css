@@ -1,9 +1,9 @@
-.userContainer {
+.user-container {
   width: 90vh;
   background-color: rgba(173, 216, 230, 0.2);
 }
 
-.userData {
+.user-data {
   text-align: left;
   padding-left: 3rem;
 }
