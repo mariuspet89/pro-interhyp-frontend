@@ -1,10 +1,10 @@
 import React,  { useState, } from 'react'
 import Button from 'react-bootstrap/Button'
 import { Card } from 'react-bootstrap'
-import userStyles from '../styles/UserDetails.module.css'
+import userStyles from '../../styles/UserDetails.module.css'
 import axios from "axios";
-import Back from './Back'
-import Modal from './Modal'
+import Back from '../Back'
+import Modal from '../Modal'
 
 function CreateUser () {
      const [state, setState] = useState({

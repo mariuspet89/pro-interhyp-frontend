@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
-import userStyles from '../styles/UserDetails.module.css'
+import userStyles from '../../styles/UserDetails.module.css'
 import Button from 'react-bootstrap/Button'
 import Editable from './editable'
 import { Card } from 'react-bootstrap'
 import axios from "axios"
-import  Back from './Back'
-import Modal from './Modal'
+import  Back from '../Back'
+import Modal from '../Modal'
 
 const UserDetails = (props) => {
 

@@ -1,9 +1,9 @@
 import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Users from "./components/users";
-import UserDetails from "./components/UserDetails";
-import CreateUser from "./components/CreateUser";
+import Users from "./components/User/Users";
+import UserDetails from "./components/User/UserDetails";
+import CreateUser from "./components/User/CreateUser";
 import Navbar from "./components/Navbar";
 import Departments from "./components/Departments";
 import CreateDepartment from "./components/CreateDepartment"

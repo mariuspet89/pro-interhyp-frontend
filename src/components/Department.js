@@ -1,13 +1,13 @@
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import "../styles/departments.css";
-import User from './User';
+import User from './User/User';
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import Axios from 'axios';
 import { useState } from 'react';
 import BigModal from './BigModal';
-import Users from './users';
+import Users from './User/Users';
 
 const Department = ({department, expand, index, expanded, getUsers, deleteDepartmentP}) => {
     const [state, setState] = useState({open: false,})
