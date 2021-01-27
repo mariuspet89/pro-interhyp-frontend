@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import userStyles from "../styles/UserDetails.module.css";
+import "../../styles/UserDetails.css";
 import Button from "react-bootstrap/Button";
 import Editable from "./editable";
 import { Card } from "react-bootstrap";
 import axios from "axios";
-import Back from "./Back";
-import Modal from "./Modal";
+import Back from "../Back";
+import Modal from "../Modal";
+import Address from "./Address";
 
 const UserDetails = (props) => {
   const [user, setUser] = useState({});
@@ -47,26 +48,24 @@ const UserDetails = (props) => {
       <Modal isOpen={open} onClose={(e) => setOpen((open) => (open = false))}>
         User was sucesfully updated
       </Modal>
-      <Card className={userStyles.userContainer}>
+      <Card className="user-container">
         <Card.Header as="h3">
           {user.firstName} {user.lastName}
         </Card.Header>
         <Card.Body>
-          <div className={userStyles.info}>
-            ✏️ click on the values you want to modify
-          </div>
-          <div className={userStyles.userData}>
+          <div className="info">✏️ click on the values you want to modify</div>
+          <div className="user-data">
             <div>
               First Name:
               <Editable
                 text={user.firstName}
                 placeholder={user.firstName}
                 type="input"
-                className={userStyles.margin}
+                className="margin"
               >
                 <input
                   type="text"
-                  className={userStyles.margin}
+                  className="margin"
                   name="firstName"
                   placeholder={user.firstName}
                   onChange={handleChange}
@@ -79,11 +78,11 @@ const UserDetails = (props) => {
                 text={user.lastName}
                 placeholder={user.lastName}
                 type="input"
-                className={userStyles.margin}
+                className="margin"
               >
                 <input
                   type="text"
-                  className={userStyles.margin}
+                  className="margin"
                   name="lastName"
                   placeholder={user.lastName}
                   value={user.lastName}
@@ -97,11 +96,11 @@ const UserDetails = (props) => {
                 text={user.username}
                 placeholder={user.username}
                 type="input"
-                className={userStyles.margin}
+                className="margin"
               >
                 <input
                   type="text"
-                  className={userStyles.margin}
+                  className="margin"
                   name="username"
                   placeholder={user.username}
                   value={user.username}
@@ -113,13 +112,13 @@ const UserDetails = (props) => {
               Date of birth:
               <Editable
                 text={user.birthday}
-                className={userStyles.margin}
+                className="margin"
                 placeholder={user.birthday}
                 type="input"
               >
                 <input
                   type="date"
-                  className={userStyles.margin}
+                  className="margin"
                   name="birthday"
                   placeholder={user.birthday}
                   value={user.birthday}
@@ -131,13 +130,13 @@ const UserDetails = (props) => {
               Job title:
               <Editable
                 text={user.job}
-                className={userStyles.margin}
+                className="margin"
                 placeholder={user.details}
                 type="input"
               >
                 <input
                   type="text"
-                  className={userStyles.margin}
+                  className="margin"
                   name="details"
                   placeholder={user.details}
                   value={user.details}
@@ -146,71 +145,14 @@ const UserDetails = (props) => {
               </Editable>
             </div>
             {user.address && (
-              <div>
-                <h2>Address :</h2>
-                <div className={userStyles.street}>
-                  <label htmlFor="street">Street: </label>
-                  <input
-                    type="text"
-                    className={userStyles.address}
-                    name="street"
-                    value={user.address.street}
-                    onChange={changeAddress}
-                  />
-                  <label htmlFor="street_number">Number: </label>
-                  <input
-                    id={userStyles.number}
-                    type="text"
-                    className={userStyles.address}
-                    name="street_number"
-                    value={user.address?.street_number}
-                    onChange={changeAddress}
-                  />
-                </div>
-                <label htmlFor="city">City: </label>
-                <input
-                  type="text"
-                  className={userStyles.address}
-                  name="city"
-                  value={user.address.city}
-                  onChange={changeAddress}
-                />
-                <label htmlFor="city">Postal: </label>
-                <input
-                  id={userStyles.postal}
-                  type="text"
-                  className={userStyles.address}
-                  name="postal"
-                  value={user.address.postal}
-                  onChange={changeAddress}
-                />
-                <br />
-                <label htmlFor="country">Country: </label>
-                <input
-                  type="text"
-                  className={userStyles.address}
-                  name="country"
-                  value={user.address.country}
-                  onChange={changeAddress}
-                />
-                <br />
-                <label htmlFor="county">County: </label>
-                <input
-                  type="text"
-                  className={userStyles.address}
-                  name="county"
-                  value={user.address.county}
-                  onChange={changeAddress}
-                />{" "}
-                <br />
-              </div>
+              <Address user={user} changeAddress={changeAddress} />
             )}
           </div>
-          <div className={userStyles.down}>
+          <div className="down">
             <Back />
             <Button
               variant="success"
-              className={userStyles.margin}
+              className="margin"
               onClick={() => updateUser()}
             >
               Update
