@@ -36,8 +36,10 @@ function Users(department) {
 
   let onDepartment = false;
   console.log("ondepartment: ", onDepartment, window.location.href);
-  if (window.location.href.includes("department"))
-    {onDepartment=true; console.log("ondepartment: ", onDepartment)}
+  if (window.location.href.includes("department")) {
+    onDepartment = true;
+    console.log("ondepartment: ", onDepartment);
+  }
 
   useEffect(() => {
     updateUsers();
@@ -58,20 +60,38 @@ function Users(department) {
   }, [searchValue]);
 
   const sortField = (field) => {
-    if (state[`sort${field.charAt(0).toUpperCase() + field.slice(1)}`]) {
-      setState({
-        ...state,
-        users: state.users.sort((a, b) =>
-          a[field]?.toUpperCase() > b[field]?.toUpperCase() ? -1 : 1
-        ),
-      });
+    if (state.birthdaySort.length > 0) {
+      if (state[`sort${field.charAt(0).toUpperCase() + field.slice(1)}`]) {
+        setState({
+          ...state,
+          users: state.birthdaySort.sort((a, b) =>
+            a[field]?.toUpperCase() > b[field]?.toUpperCase() ? -1 : 1
+          ),
+        });
+      } else {
+        setState({
+          ...state,
+          users: state.birthdaySort.sort((a, b) =>
+            a[field]?.toUpperCase() > b[field]?.toUpperCase() ? 1 : -1
+          ),
+        });
+      }
     } else {
-      setState({
-        ...state,
-        users: state.users.sort((a, b) =>
-          a[field]?.toUpperCase() > b[field]?.toUpperCase() ? 1 : -1
-        ),
-      });
+      if (state[`sort${field.charAt(0).toUpperCase() + field.slice(1)}`]) {
+        setState({
+          ...state,
+          users: state.users.sort((a, b) =>
+            a[field]?.toUpperCase() > b[field]?.toUpperCase() ? -1 : 1
+          ),
+        });
+      } else {
+        setState({
+          ...state,
+          users: state.users.sort((a, b) =>
+            a[field]?.toUpperCase() > b[field]?.toUpperCase() ? 1 : -1
+          ),
+        });
+      }
     }
   };
 
@@ -249,7 +269,11 @@ function Users(department) {
               <th>Details</th>
               <th>
                 <Link to={{ pathname: `/create` }} className="details-link">
-                  <Button variant="outline-light" size="lg" style={{display: onDepartment ? 'none' : 'inline' }}>
+                  <Button
+                    variant="outline-light"
+                    size="lg"
+                    style={{ display: onDepartment ? "none" : "inline" }}
+                  >
                     {" "}
                     Add new user
                   </Button>
@@ -259,7 +283,13 @@ function Users(department) {
           </thead>
           <tbody>
             {currentUsers.map((user) => (
-              <User key={user.id} user={user} deleteUser={deleteUser} onDepartment={onDepartment} department={department}/>
+              <User
+                key={user.id}
+                user={user}
+                deleteUser={deleteUser}
+                onDepartment={onDepartment}
+                department={department}
+              />
             ))}
           </tbody>
         </table>
