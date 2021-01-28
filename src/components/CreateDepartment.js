@@ -64,11 +64,21 @@ function CreateDepartment () {
 }
 function handleAdd() {
     const fields = state.fields;
-    fields.userIds.push({ value: null });
+    fields.userIds?.push({ value: null });
     setState(prevState => {
         return { ...prevState, fields: fields }
       });
   }
+function handleRemove(i) {
+    const values = state.fields;
+    console.log("before splice: ", values.userIds)
+    values.userIds.splice(i, 1);
+    console.log("after splice: ", values)
+    setState(prevState => {
+        return { ...prevState, fields: values }
+      });
+  }
+  
     
       return(
         <div>
@@ -102,6 +112,7 @@ function handleAdd() {
                     ➕
                     </span>
                     <br/>
+                    
                     {state.fields.userIds.map((fields, idx) => {
                         return (
                         <div key={`${idx}`}>
@@ -110,12 +121,12 @@ function handleAdd() {
                             name="userIds"
                             onChange={(e)=>handleChange(e, idx)}
                             />
-                            {/* <button type="button" onClick={() => handleRemove(idx)}>
-                            X
-                            </button> */}
+                            <span onClick={() => handleRemove(idx)}>
+                            ✖️
+                            </span>
                         </div>
                         );
-                    })}
+                    })} 
                 </label>
                 <br/>
                 </form>
