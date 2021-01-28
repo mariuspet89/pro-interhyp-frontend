@@ -53,20 +53,38 @@ function Users() {
   }, [searchValue]);
 
   const sortField = (field) => {
-    if (state[`sort${field.charAt(0).toUpperCase() + field.slice(1)}`]) {
-      setState({
-        ...state,
-        users: state.users.sort((a, b) =>
-          a[field]?.toUpperCase() > b[field]?.toUpperCase() ? -1 : 1
-        ),
-      });
+    if (state.birthdaySort.length > 0) {
+      if (state[`sort${field.charAt(0).toUpperCase() + field.slice(1)}`]) {
+        setState({
+          ...state,
+          users: state.birthdaySort.sort((a, b) =>
+            a[field]?.toUpperCase() > b[field]?.toUpperCase() ? -1 : 1
+          ),
+        });
+      } else {
+        setState({
+          ...state,
+          users: state.birthdaySort.sort((a, b) =>
+            a[field]?.toUpperCase() > b[field]?.toUpperCase() ? 1 : -1
+          ),
+        });
+      }
     } else {
-      setState({
-        ...state,
-        users: state.users.sort((a, b) =>
-          a[field]?.toUpperCase() > b[field]?.toUpperCase() ? 1 : -1
-        ),
-      });
+      if (state[`sort${field.charAt(0).toUpperCase() + field.slice(1)}`]) {
+        setState({
+          ...state,
+          users: state.users.sort((a, b) =>
+            a[field]?.toUpperCase() > b[field]?.toUpperCase() ? -1 : 1
+          ),
+        });
+      } else {
+        setState({
+          ...state,
+          users: state.users.sort((a, b) =>
+            a[field]?.toUpperCase() > b[field]?.toUpperCase() ? 1 : -1
+          ),
+        });
+      }
     }
   };
 
@@ -246,7 +264,6 @@ function Users() {
               <th>
                 <Link to={{ pathname: `/create` }} className="details-link">
                   <Button variant="outline-light" size="lg">
-                    {" "}
                     Add new user
                   </Button>
                 </Link>
