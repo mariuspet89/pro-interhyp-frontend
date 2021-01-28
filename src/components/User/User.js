@@ -46,7 +46,7 @@ const User = ({ user, deleteUser, department, onDepartment }) => {
         <Button
           variant="outline-success"
           style={{ display: !onDepartment ? "none" : "inline" }}
-          className="delete-button"
+          className="add-button"
           onClick={() => handleAdd(user.id)}
         >
           Add to department
