@@ -32,6 +32,7 @@ function Users(department) {
     axios.get("http://20.71.162.122:8080/users").then((response) => {
       setState({ ...state, users: response.data });
     });
+    console.log(state.users);
   };
 
   let onDepartment = false;
@@ -168,15 +169,15 @@ function Users(department) {
 
   const deleteUser = (id, company) => {
     if (window.confirm("Are you sure you want to delete?")) {
-      try {
-        axios
-          .delete("http://20.71.162.122:8080/users/" + id + "/" + company)
-          .then(() => {
-            updateUsers();
-          });
-      } catch (err) {
-        console.log(err);
-      }
+      axios
+        .delete("http://20.71.162.122:8080/users/" + id + "/" + company)
+        .then(() => {
+          updateUsers();
+        })
+        .catch((err) => {
+          console.log(err);
+          updateUsers();
+        });
     } else {
       console.log("Delete, cancelled");
     }
