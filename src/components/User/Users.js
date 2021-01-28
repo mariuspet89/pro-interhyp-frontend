@@ -181,6 +181,18 @@ function Users(department) {
     } else {
       console.log("Delete, cancelled");
     }
+    if (state.birthdaySort.length > 0) {
+      const i = state.birthdaySort.findIndex((x) => x.id == id);
+      const latestSearch = state.birthdaySort;
+      latestSearch.splice(i, 1);
+      setState({ ...state, birthdaySort: latestSearch });
+    }
+    if (searchValue !== "") {
+      const index = state.filteredUsers.findIndex((x) => x.id == id);
+      const latestSearch = state.filteredUsers;
+      latestSearch.splice(index, 1);
+      setState({ ...state, filteredUsers: latestSearch });
+    }
   };
   const indexOfLastUser = state.activePage * state.usersPerPage;
   const indexOfFirstUser = indexOfLastUser - state.usersPerPage;
@@ -251,7 +263,7 @@ function Users(department) {
                   <div>
                     <input
                       className="date-picker"
-                      value={state.startDate}
+                      value={state?.startDate}
                       type="date"
                       onChange={setStartDate}
                     />
@@ -259,7 +271,7 @@ function Users(department) {
                     <input
                       className="date-picker"
                       type="date"
-                      value={state.endDate}
+                      value={state?.endDate}
                       onChange={setEndDate}
                     />
                     <br />
