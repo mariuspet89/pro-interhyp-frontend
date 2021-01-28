@@ -38,7 +38,7 @@ const User = ({ user, deleteUser, department, onDepartment }) => {
         <Button
           variant="outline-danger"
           style={{ display: onDepartment ? "none" : "inline" }}
-          className="delete-button"
+        //   className="delete-button"
           onClick={() => handleDelete(user.id, user.company)}
         >
           Delete
